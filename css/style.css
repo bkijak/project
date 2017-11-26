@@ -85,3 +85,18 @@ html, body {
   top:0;
   left: 0;
 }
+
+#arrayContainer div
+{
+    border:solid 1px black;
+    margin:1px;
+		width: 10%;
+		text-align: center;
+		margin: 1px auto;
+}
+
+#arrayContainer {
+	width: 50%;
+	margin-top: 20px;
+	display: flex;
+}

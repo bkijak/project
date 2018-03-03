@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}UEA{% endblock %}
+
+{% block currentButton %}
+
+  {% if current_user.is_authenticated %}
+  <a class="myBW w3-bar-item w3-button w3-red w3-right" href="{{ url_for('account') }}">ACCOUNT</a>
+  {% else %}
+  <a class="myBW w3-bar-item w3-button w3-red w3-right" href="{{ url_for('register') }}">SIGN UP</a>
+  {% endif %}
+
+  {% if current_user.is_authenticated %}
+    <a class="myBB w3-bar-item w3-button w3-red w3-right" href="{{ url_for('logout') }}">LOGOUT</a>
+  {% else %}
+    <a class="myBB w3-bar-item w3-button w3-red w3-right" href="{{ url_for('login') }}">LOGIN</a>
+  {% endif %}
+
+  <a class="myB w3-bar-item w3-button w3-black w3-right" href="{{ url_for('test') }}">TEST</a>
+  <a class="myB w3-bar-item w3-button w3-black w3-right" href="{{ url_for('learn') }}">LEARN</a>
+  <a class="currentB myB w3-bar-item w3-button w3-teal w3-right" href="{{ url_for('index') }}">HOME</a>
+{% endblock %}
+
+{% block page_content %}
+<div class = container id="loginContainer">
+  <div class = "button" id = "leftButton">
+    <a href="learn"><span class = "linkSpan"></span></a>
+    <h2> Learn Computing </h2>
+    <p>Learn computing from a range of topics. This section <br>
+      will provide you with demonstrations on binary, <br>
+      alorithms... </p>
+  </div>
+  <div class = "button" id = "rightButton">
+    <a href="http://www.google.com"><span class = "linkSpan"></span></a>
+    <h2> Test your Knowledge </h2>
+    <p>Test your knowledge on a range of computing topics. <br>
+      This section will allow you to take quizzes on topics <br>
+      covered in the "Learn" section </p>
+
+  </div>
+
+</div>
+{% endblock %}
+
+{% block scripts %}
+  {{ super() }}
+  <script src="{{url_for('static', filename='scripts/script.js')}}"></script>
+{% endblock %}

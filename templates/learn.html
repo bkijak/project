@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}UEA{% endblock %}
+
+{% block currentButton %}
+
+  {% if current_user.is_authenticated %}
+  <a class="myBW w3-bar-item w3-button w3-red w3-right" href="{{ url_for('account') }}">ACCOUNT</a>
+  {% else %}
+  <a class="myBW w3-bar-item w3-button w3-red w3-right" href="{{ url_for('register') }}">SIGN UP</a>
+  {% endif %}
+
+  {% if current_user.is_authenticated %}
+    <a class="myBB w3-bar-item w3-button w3-red w3-right" href="{{ url_for('logout') }}">LOGOUT</a>
+  {% else %}
+    <a class="myBB w3-bar-item w3-button w3-red w3-right" href="{{ url_for('login') }}">LOGIN</a>
+  {% endif %}
+
+  <a class="myB w3-bar-item w3-button w3-black w3-right" href="{{ url_for('test') }}">TEST</a>
+  <a class="currentB myB w3-bar-item w3-button w3-black w3-right" href="{{ url_for('learn') }}">LEARN</a>
+  <a class="myB w3-bar-item w3-button w3-teal w3-right" href="{{ url_for('index') }}">HOME</a>
+{% endblock %}
+
+{% block page_content %}
+<div class="container">
+  <div class="midContainer">
+    <div class="categoryContainer">
+      <h1> Binary </h1>
+      <a class="catButton w3-button w3-round-xlarge">Binary 1</a>
+      <a class="catButton w3-button w3-round-xlarge">Binary 2</a>
+      <a class="catButton w3-button w3-round-xlarge">Binary 3</a>
+      <a class="catButton w3-button w3-round-xlarge">Binary 4</a>
+    </div>
+    <div class="categoryContainer">
+      <h1> Algorithms </h1>
+      <a class="catButton w3-button w3-round-xlarge" href="{{ url_for('selectionSort') }}">Selection Sort</a>
+      <a class="catButton w3-button w3-round-xlarge" href="{{ url_for('insertionSort') }}">Insertion Sort</a>
+      <a class="catButton w3-button w3-round-xlarge">Algorithm 3</a>
+      <a class="catButton w3-button w3-round-xlarge">Algorithm 4</a>
+    </div>
+    <div class="categoryContainer">
+      <h1> Logic </h1>
+      <a class="catButton w3-button w3-round-xlarge">Logic 1</a>
+      <a class="catButton w3-button w3-round-xlarge">Logic 2</a>
+      <a class="catButton w3-button w3-round-xlarge">Logic 3</a>
+      <a class="catButton w3-button w3-round-xlarge">Logic 4</a>
+    </div>
+
+    <!-- <div class = listItem>
+      <a href = "binary.html"> Learn Binary </a>
+      <p> Learn Binary </p>
+    </div>
+
+    <div class = listItem>
+      <a href = "algorithms.html"> Learn Algorithms </a>
+    </div> -->
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,635 @@
+/**********************************************************/
+/******************DEFAULT CUSTOMISATION*******************/
+/**********************************************************/
+
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+
+html, body {
+	padding: 0;
+	margin: 0;
+	height: 100%;
+	width: 100%;
+	font-family: sans-serif;
+	background-color: #dfdfdf;
+}
+
+.alert-warning {
+	background-color: white !important;
+	margin: 0 auto;
+	margin-top: 10px;
+	width: 40%;
+	text-align: center;
+	vertical-align: middle;
+	border-radius: 20px;
+}
+
+/*************************************************************/
+/******************BASE HTML NAVIGATION BAR*******************/
+/*************************************************************/
+
+
+.topBar {
+	width: 100%;
+	height: 100px;
+	position: static;
+	margin: 0;
+	padding: 0;
+	background-color: #3187DD;
+	display: flex;
+	vertical-align: middle;
+}
+
+
+.ueaLogo {
+	width: 30%;
+  height: 100px;
+	line-height: 100px;
+  float: left;
+	position: relative;
+	text-align: center;
+	vertical-align: middle;
+}
+
+.ueaLogo img {
+	max-width: 100%;
+	max-height: 90%;
+	vertical-align: middle;
+}
+
+.topTitle {
+	width: 40%;
+  height: 100px;
+	line-height: 100px;
+  float: left;
+	position: relative;
+	text-align: left;
+	display: inline-block;
+	vertical-align: middle;
+}
+
+
+.topTitle h3 {
+	margin: 0;
+	font-size: 23px;
+	color: white;
+}
+
+.options {
+	flex:1;
+  height: 100px;
+	line-height: 25px;
+  float: right;
+	position: relative;
+	text-align: center;
+	vertical-align: middle;
+	display: flex;
+	justify-content: flex-end;
+	padding-right: 70px;
+	align-items: center;
+}
+
+.optionsItem {
+	width: 100px;
+	height: 100px;
+	color: white;
+	vertical-align: middle;
+	margin: 0;
+	padding: 0;
+}
+
+#logIn {
+	border: 2px solid white;
+	height: 35px;
+	margin: 0;
+	padding: 0;
+	vertical-align: top;
+	background-color: white;
+	border-radius: 10px;
+}
+
+#logIn p {
+	height: inherit;
+	margin: 0;
+	padding: 0;
+}
+
+.options img {
+	max-width: 100%;
+	max-height: 30px;
+	vertical-align: middle;
+}
+
+.container {
+	width: 100%;
+	height: inherit;
+	position: absolute;
+	margin: 0;
+	padding: 0;
+	background-color: #dfdfdf;
+}
+
+.optionLinkSpan {
+	background: red;
+    opacity: .3;
+    position:absolute;
+    width:inherit;
+    height:inherit;
+    left:0;
+    top:0;
+    z-index:1;
+}
+
+.myB {
+	background-color: #3187DD !important;
+	color: #bfdfff !important;
+	font-weight: bold;
+}
+
+.myB:hover {
+	background-color: #3187DD !important;
+	color: white !important;
+}
+
+.myBW {
+	background-color: white !important;
+	color: #3187DD !important;
+	border: 1px solid white !important;
+	border-radius: 8px !important;
+	margin-left: 10px;
+	font-weight: bold;
+}
+
+.myBW:hover {
+	background-color: #b1d8ff!important;
+	border: 1px solid #b1d8ff !important;
+	color: #3187DD !important;
+	border-radius: 8px !important;
+	margin-left: 10px;
+  transition: background-color .2s ease-out;
+}
+
+.myBB {
+	background-color: #3187DD !important;
+	color: #bfdfff !important;
+	border: 1px solid white !important;
+	border-radius: 8px !important;
+	margin-left: 50px;
+	font-weight: bold;
+}
+
+.myBB:hover {
+	background-color: #67b3ff !important;
+	color: white !important;
+	border: 1px solid white !important;
+	border-radius: 8px !important;
+	margin-left: 50px;
+	transition: background-color .2s ease-out;
+}
+
+.currentB {
+	background-color: #3187DD !important;
+	color: #bfdfff !important;
+	font-weight: bold;
+	border-bottom: 5px solid #1c4b79 !important;
+}
+
+/****************************************************/
+/******************INDEX/HOME PAGE*******************/
+/****************************************************/
+
+
+
+.button {
+	width: 50%;
+  height: 100%;
+  float: left;
+	position: relative;
+	text-align: center;
+
+}
+
+#leftButton, #rightButton {
+	background: linear-gradient(#6699ff, #3333ff);
+	vertical-align: middle;
+	-webkit-box-shadow:inset 0px 0px 10px 10px white;
+  -moz-box-shadow:inset 0px 0px 10px 10px white;
+  box-shadow:inset 0px 0px 10px 10px white;
+}
+
+#leftButton p, #rightButton p {
+	opacity: 0;
+}
+
+.button h2 {
+	font-size: 40px;
+	opacity: 1;
+	margin-top: 35%;
+}
+
+#leftButton:hover, #rightButton:hover {
+	transition:all 0.3s ease;
+	opacity: 0.8;
+	color: white;
+}
+
+#leftButton:hover p, #rightButton:hover p {
+	opacity: 1;
+	transition:all 0.3s ease;
+	color: white;
+	margin: 0;
+	padding: 0;
+}
+
+.linkSpan {
+	position: absolute;
+  width:100%;
+  height:100%;
+  top:0;
+  left: 0;
+  z-index: 1;
+}
+
+#arrayContainer div
+{
+    border:solid 1px black;
+    margin:1px;
+		width: 10%;
+		text-align: center;
+		margin: 1px auto;
+}
+
+#arrayContainer {
+	width: 50%;
+	margin-top: 20px;
+	display: flex;
+}
+
+
+
+/***********************************************/
+/******************LOGIN PAGE*******************/
+/***********************************************/
+
+.loginS {
+margin: 20px auto;
+width: 300px;
+}
+.login-screen {
+background-color: #FFF;
+padding: 20px;
+border-radius: 5px
+}
+
+.app-title {
+text-align: center;
+color: #777;
+margin-bottom: 30px;
+}
+
+.login-form {
+text-align: center;
+}
+.control-group {
+margin-bottom: 10px;
+}
+
+.login-screen input {
+text-align: center;
+background-color: #ECF0F1;
+border: 2px solid transparent;
+border-radius: 3px;
+font-size: 16px;
+font-weight: 200;
+padding: 10px 0;
+width: 250px;
+transition: border .5s;
+}
+
+.login-screen input:focus {
+border: 2px solid #3498DB;
+box-shadow: none;
+}
+
+.login-screen .btn {
+  border: 2px solid transparent;
+  background: #3498DB;
+  color: #ffffff;
+  font-size: 16px;
+  line-height: 25px;
+  padding: 10px 0;
+  text-decoration: none;
+  text-shadow: none;
+  border-radius: 3px;
+  box-shadow: none;
+  transition: 0.25s;
+  display: block;
+  width: 250px;
+  margin: 0 auto;
+}
+
+.login-screen .btn:hover {
+  background-color: #2980B9;
+}
+
+.login-link {
+  font-size: 12px;
+  color: #444;
+  display: block;
+	margin-top: 12px;
+}
+
+#loginContainer {
+	background-color: #dfdfdf;
+	height: 100%;
+}
+
+.btn {
+	margin: 0px 20px !important;
+}
+
+#submit {
+	margin: 0 !important;
+	margin-top: 20px !important;
+}
+
+#remember_me {
+	width: 30px;
+	vertical-align: middle;
+}
+
+.form-control {
+	margin-bottom: 10px;
+}
+
+
+/***********************************************/
+/******************LEARN PAGE*******************/
+/***********************************************/
+
+
+.catButton {
+	width: 50%;
+	height: 40px;
+	margin-bottom: 3px;
+	background-color: #3187DD !important;
+	color: #bfdfff !important;
+	font-weight: bold;
+}
+
+.catButton:hover {
+	background-color: #3187DD !important;
+	color: white !important;
+}
+
+.midContainer {
+	width: 900px;
+	margin: 0 auto;
+	background-color: white;
+	text-align: center;
+	height: inherit;
+}
+
+.categoryContainer {
+	padding-top: 30px;
+	background-color: white;
+}
+
+.categoryContainer h1 {
+	text-align: center;
+	color: #777;
+	margin-bottom: 10px;
+}
+
+/****************************************************/
+/******************ALGORITHMS PAGES******************/
+/****************************************************/
+
+#algoTitle {
+	font-size: 30px;
+	margin: 20px 0;
+	text-align: center;
+	font-weight: bold;
+	color: #3187DD;
+	text-transform: uppercase;
+}
+
+.algoControls {
+	background-color: white;
+	text-align: center;
+	width: 1000px;
+	height: 100px;
+	line-height: 100px;
+	margin: 0 auto;
+	vertical-align: middle;
+	border-radius: 20px;
+}
+
+.algoControls label {
+	margin-left: 30px;
+}
+
+
+#elements, #speedSelectList, #runAlgoButton {
+	height: 30px;
+	line-height: 1px;
+	vertical-align: middle;
+}
+
+#runAlgoButton {
+	background-color: #3187DD;
+	border: 0px;
+	color: white;
+	margin-left: 30px;
+}
+
+#runAlgoButton:hover {
+	background-color: #68b3ff;
+	border: 0px;
+	color: white;
+}
+
+#OutDiv ul, #legendDiv ul  {
+	list-style-type: none;
+	padding:12px 0px;
+	width: 900px;
+	margin: 0 auto;
+	margin-bottom: 30px;
+}
+
+#legendDiv ul {
+	width: 100%;
+}
+
+#OutDiv ul li, #legendDiv ul li {
+	position: relative;
+	display: inline-block;
+	border: 3px solid white;
+	width: 40px;
+	height: 40px;
+	text-align: center;
+	line-height: 34px;
+	margin-left: 5px;
+	margin-bottom: 15px;
+	border-radius: 16px;
+	background-color: white;
+}
+
+#OutDiv .target, #legendDiv .target, #algoInfo .target {
+	background-color: #68b3ff;
+	border-color: #68b3ff;
+}
+
+#OutDiv .finished, #legendDiv .finished {
+	background-color: #90ff68;
+	border-color: #90ff68;
+}
+
+#OutDiv .start, #legendDiv .start {
+	border-top-color: #686aff;
+}
+
+#OutDiv .minimalPos, #legendDiv .minimalPos, #algoInfo .minimalPos {
+	border-bottom-color: #ff6868;
+}
+
+#OutDiv .minAndStart, #legendDiv .minAndStart {
+	border-top-color: #686aff;
+	border-bottom-color: #ff6868;
+}
+
+#OutDiv .tarAndStart {
+	background-color: #68b3ff;
+	border-color: #68b3ff;
+	border-top-color: #686aff;
+}
+
+#OutDiv .minAndTar, #legendDiv .minAndTar {
+	background-color: #68b3ff;
+	border-color: #68b3ff;
+	border-bottom-color: #ff6868;
+}
+
+#OutDiv .minAndStartAndTar, #legendDiv .minAndStartAndTar {
+	background-color: #68b3ff;
+	border-color: #68b3ff;
+	border-top-color: #686aff;
+	border-bottom-color: #ff6868;
+}
+
+#OutDiv .lowerThan {
+	background-color: red;
+}
+
+#OutDiv {
+	margin: 0 auto;
+	margin-top:40px;
+ 	}
+
+#topTri, .topTri { position:absolute; top:-25px; left:9.5px; padding:0; margin:0; font-weight:bold; color: #686aff;}
+#botTri, .botTri { position:absolute; top:26px; left:9.5px; padding:0; margin:0; font-weight:bold; color: #ff6868;}
+
+
+#algoInfo {
+	overflow:auto;
+	background-color: #a2a2a2;
+	width: 1000px;
+	margin: 0 auto;
+  border-radius: 20px;
+	text-align: center;
+}
+
+#legendDiv {
+	display: inline-block;
+	width: 200px;
+	padding: 20px;
+	text-align: center;
+}
+
+#legendDiv p {
+	margin-bottom: 5px;
+	color: white;
+	font-weight: 600;
+}
+
+#legendDiv h1 {
+	width: 100%;
+}
+
+#legendDiv ul {
+	margin:0;
+}
+
+.algorithmText {
+	font-weight: 900;
+	/* background-color: green; */
+	display: inline-block;
+	height: 100px;
+	width: 600px;
+	margin-top: 150px;
+	color: white;
+	vertical-align: top;
+}
+
+#algoElement {
+	position: relative;
+	display: inline-block;
+	border: 3px solid white;
+	width: 40px;
+	height: 40px;
+	text-align: center;
+	line-height: 34px;
+	margin-left: 5px;
+	margin-bottom: 15px;
+	border-radius: 16px;
+	background-color: white;
+	color: black;
+	font-weight: normal;
+}

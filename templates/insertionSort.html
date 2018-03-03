@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}UEA{% endblock %}
+
+{% block currentButton %}
+
+  {% if current_user.is_authenticated %}
+  <a class="myBW w3-bar-item w3-button w3-red w3-right" href="{{ url_for('account') }}">ACCOUNT</a>
+  {% else %}
+  <a class="myBW w3-bar-item w3-button w3-red w3-right" href="{{ url_for('register') }}">SIGN UP</a>
+  {% endif %}
+
+  {% if current_user.is_authenticated %}
+    <a class="myBB w3-bar-item w3-button w3-red w3-right" href="{{ url_for('logout') }}">LOGOUT</a>
+  {% else %}
+    <a class="myBB w3-bar-item w3-button w3-red w3-right" href="{{ url_for('login') }}">LOGIN</a>
+  {% endif %}
+
+  <a class="myB w3-bar-item w3-button w3-black w3-right" href="{{ url_for('test') }}">TEST</a>
+  <a class="currentB myB w3-bar-item w3-button w3-black w3-right" href="{{ url_for('learn') }}">LEARN</a>
+  <a class="myB w3-bar-item w3-button w3-teal w3-right" href="{{ url_for('index') }}">HOME</a>
+{% endblock %}
+
+{% block page_content %}
+
+<h1 id = "algoTitle"> Insertion Sort </h1>
+
+<div class = "algoControls">
+  <label> Speed: <select id = "speedSelectList">
+    <option value = "2000">Slow</option>
+    <option value = "750">Medium</option>
+    <option value = "200">Fast</option>
+  </select>
+  </label>
+
+  <label for="numOfElements"> Number of elements: </label>
+  <input id = "elements" type="number" name="numOfElements">
+  <input id = "runAlgoButton" type="button" value="Start Animation" onclick='runSort()'/>
+</div>
+
+<div id = OutDiv>
+</div>
+
+<div id = "algoInfo">
+  <div id = "legendDiv">
+    <ul>
+      <p> Unsorted Element </p>
+      <li> 1 </li>
+      <p> Sorted Element </p>
+      <li class ='finished'>2</li>
+      <p> Target Element </p>
+      <li class = 'target'>3</li>
+      <p> Starting Position </p>
+      <li class='start' style="margin-top: 10px">
+        4
+        <span id="topTri">▲</span>
+      </li>
+    </ul>
+  </div>
+
+  <div class="algorithmText">
+    <div id = "algorithmText1"></div>
+    <div id = "algorithmText2"></div>
+    <div id = "algorithmText3"></div>
+  </div>
+</div>
+{% endblock %}
+
+
+{% block scripts %}
+  {{ super() }}
+  <script src="{{url_for('static', filename='scripts/insertionSort.js')}}"></script>
+{% endblock %}

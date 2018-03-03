@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+  <head>
+    {% block head %}
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='imgs/uea.png') }}" type="image/x-icon">
+    <link rel="icon" href="{{ url_for('static', filename='imgs/uea.png') }}" type="image/x-icon">
+
+    <title>{% block title %}{% endblock %}</title>
+    {% endblock %}
+  </head>
+  <body>
+
+    {% block scripts %}
+      <script src="{{url_for('static', filename='scripts/jquery-3.2.1.min.js')}}"></script>
+    {% endblock %}
+
+    {% block navbar %}
+    <div class = "topBar">
+      <div class = "ueaLogo">
+        <a href="{{ url_for('index') }}">
+         <img src="{{url_for('static', filename='imgs/uea3.png')}}" />
+       </a>
+      </div>
+
+      <div class = "options">
+        <div class="w3-bar">
+          {% block currentButton %}
+
+          {% endblock %}
+        </div>
+      </div>
+    </div>
+    {% endblock %}
+
+    {% block content %}
+        {% for message in get_flashed_messages() %}
+        <div class="alert alert-warning">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            {{ message }}
+        </div>
+        {% endfor %}
+
+        {% block page_content %}{% endblock %}
+    </div>
+    {% endblock %}
+
+
+  </body>
+</html>

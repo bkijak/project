@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}UEA{% endblock %}
+
+{% block currentButton %}
+  <a class="myBW w3-bar-item w3-button w3-red w3-right" href="register">SIGN UP</a>
+  <a class="myBB w3-bar-item w3-button w3-red w3-right" href="login">LOGIN</a>
+  <a class="myB w3-bar-item w3-button w3-black w3-right" href="learn">TEST</a>
+  <a class="myB w3-bar-item w3-button w3-black w3-right" href="learn">LEARN</a>
+  <a class="myB w3-bar-item w3-button w3-teal w3-right" href="index">HOME</a>
+{% endblock %}
+
+{% block page_content %}
+<div class = 'container' id = 'loginContainer'>
+
+<form action="{{ url_for('register') }}" method="POST">
+	<div class="loginS">
+		<div class="login-screen">
+			<div class="app-title">
+				<h1>Register a new account:</h1>
+			</div>
+
+			<!-- <div class="login-form">
+				<div class="control-group">
+				<input type="text" class="login-field" value="" placeholder="username" name="username">
+				<label class="login-field-icon fui-user" for="login-name"></label>
+				</div>
+
+				<div class="control-group">
+				<input type="password" class="login-field" value="" placeholder="password" name="password">
+				<label class="login-field-icon fui-lock" for="login-pass"></label>
+				</div>
+
+                <input type="submit" value="LOGIN" class="btn btn-primary btn-large btn-block" >
+			    <br>
+			</div> -->
+      <form method = "POST">
+        {{ wtf.quick_form(form) }}
+      </form>
+		</div>
+	</div>
+</form>
+
+</div>
+{% endblock %}

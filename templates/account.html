@@ -24,12 +24,47 @@
 
 {% block page_content %}
 
-<div class="container" id="loginContainer">
+<div class="container" id ="loginContainer">
   <div class="midContainer">
-    <h1>Hello, {% if current_user.is_authenticated %}{{ current_user.username }}{% else %}Stranger{% endif %}!</h1>
-    <h1>Your email:  {% if current_user.is_authenticated %}{{ current_user.email }}{% else %}Stranger{% endif %}!</h1>
-    <h1>Your ID:  {% if current_user.is_authenticated %}{{ current_user.id }}{% else %}Stranger{% endif %}!</h1>
+    <div class = "avatarPic">
+      <img src="https://scontent.fltn1-2.fna.fbcdn.net/v/t1.0-9/10934020_921612557849828_3275281046292978331_n.jpg?oh=3702919b5d56cf231f32d669b74a4128&oe=5B4A4DE6">
+      <!-- {{url_for('static', filename='imgs/user.png')}} -->
+    </div>
+    <div class = "accountInfo">
+      <h1> {{ current_user.username }} </h1>
+    </div>
+    <div class = "accountOptions">
+      <button id ="passBtn" class="accButton w3-button w3-round-xlarge">Change Password</a>
+      <button class="accButton w3-button w3-round-xlarge">Change Avatar</a>
+    </div>
+    <div class ="compTests">
+    </div>
+
+    <div id = "passPopup" class = "passPopup">
+      <div class="passPopup-content">
+        <span class="close">&times;</span>
+        <form action="{{ url_for('register') }}" method="POST">
+        	<div class="loginS">
+        		<div class="login-screen">
+        			<div class="app-title">
+        				<h1>Change password:</h1>
+        			</div>
+              <form method = "POST">
+                {{ wtf.quick_form(form) }}
+              </form>
+        		</div>
+        	</div>
+        </form>
+      </div>
+    </div>
+
+
   </div>
 </div>
 
+{% endblock %}
+
+{% block scripts %}
+  {{ super() }}
+  <script src="{{url_for('static', filename='scripts/script.js')}}"></script>
 {% endblock %}

@@ -1,9 +1,17 @@
-$(document).ready(function(){
-    $(".ueaLogo").mouseenter(function(){
-        $("h2").hide();
-    });
+var modal = document.getElementById('passPopup');
+var btn = document.getElementById('passBtn');
+var span = document.getElementsByClassName("close")[0];
 
-    $(".ueaLogo").mouseleave(function(){
-        $("h2").show();
-    })
-});
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}

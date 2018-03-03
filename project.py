@@ -123,7 +123,8 @@ def register():
 @app.route('/account')
 @login_required
 def account():
-    return render_template('account.html')
+    form = ChangePassForm()
+    return render_template('account.html', form=form)
 
 @app.route('/learn/selectionSort')
 def selectionSort():
@@ -163,6 +164,14 @@ class RegisterForm(FlaskForm):
     def validate_userName(self, field):
         if User.query.filter_by(username=field.data).first():
             raise ValidationError('User name already in use')
+
+class ChangePassForm(FlaskForm):
+    currPass = PasswordField('Current password', validators=[DataRequired()])
+    newPass = PasswordField('New password', validators=[DataRequired(),
+                                                        EqualTo('newPassConf', message='New passwords must match')])
+    newPassConf = PasswordField('Confirm new password', validators=[DataRequired()])
+    submit = SubmitField('Change password')
+
 
 ###########################################
 ##################RUN######################

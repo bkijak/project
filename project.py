@@ -5,7 +5,7 @@ from flask_wtf import FlaskForm
 from wtforms import BooleanField, validators, StringField, SubmitField, PasswordField
 from wtforms.validators import DataRequired, Regexp, EqualTo, Email, ValidationError
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import UserMixin, LoginManager, login_required, login_manager, login_user, logout_user
+from flask_login import UserMixin, LoginManager, login_required, login_manager, login_user, logout_user, current_user
 from flask_bootstrap import Bootstrap
 
 ###########################################
@@ -25,6 +25,7 @@ bootstrap = Bootstrap(app)
 login_manager = LoginManager(app)
 login_manager.session_protection = 'basic'
 login_manager.login_view = 'login.html'
+# login_manager.account_view = 'account.html'
 
 ###########################################
 ##################MODELS###################
@@ -120,10 +121,19 @@ def register():
         return redirect(url_for('login'))
     return render_template('register.html', form=form)
 
-@app.route('/account')
+@app.route('/account', methods=['GET', 'POST'])
 @login_required
 def account():
     form = ChangePassForm()
+    if form.validate_on_submit():
+        if current_user.verify_password(form.currPass.data):
+            current_user.password = form.newPass.data
+            db.session.add(current_user)
+            db.session.commit()
+            flash('Password changed successfully')
+            return redirect(url_for('account'))
+        else:
+            flash('Invalid current password')
     return render_template('account.html', form=form)
 
 @app.route('/learn/selectionSort')

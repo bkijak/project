@@ -27,7 +27,7 @@
 <div class="container" id ="loginContainer">
   <div class="midContainer">
     <div class = "avatarPic">
-      <img src="https://scontent.fltn1-2.fna.fbcdn.net/v/t1.0-9/10934020_921612557849828_3275281046292978331_n.jpg?oh=3702919b5d56cf231f32d669b74a4128&oe=5B4A4DE6">
+      <img src="{{url_for('static', filename='imgs/user.png')}}">
       <!-- {{url_for('static', filename='imgs/user.png')}} -->
     </div>
     <div class = "accountInfo">
@@ -43,7 +43,7 @@
     <div id = "passPopup" class = "passPopup">
       <div class="passPopup-content">
         <span class="close">&times;</span>
-        <form action="{{ url_for('register') }}" method="POST">
+        <form action="{{ url_for('account') }}" method="POST">
         	<div class="loginS">
         		<div class="login-screen">
         			<div class="app-title">

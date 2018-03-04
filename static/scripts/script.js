@@ -30,7 +30,7 @@ $(document).ready(function() {
     }
   }
 
-  window.onclick = function(event) {
+  document.onclick = function(event) {
     if (event.target == modal2) {
       modal2.style.display = "none";
     }

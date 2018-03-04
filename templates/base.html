@@ -11,42 +11,49 @@
     {% endblock %}
   </head>
   <body>
+    <div class="all">
+      {% block navbar %}
+        <div class = "topBar">
+          <div class = "ueaLogo">
+            <a href="{{ url_for('index') }}">
+             <img src="{{url_for('static', filename='imgs/uea3.png')}}" />
+           </a>
+          </div>
 
+          <div class = "options">
+            <div class="w3-bar">
+              {% block currentButton %}
 
-
-    {% block navbar %}
-    <div class = "topBar">
-      <div class = "ueaLogo">
-        <a href="{{ url_for('index') }}">
-         <img src="{{url_for('static', filename='imgs/uea3.png')}}" />
-       </a>
-      </div>
-
-      <div class = "options">
-        <div class="w3-bar">
-          {% block currentButton %}
-
-          {% endblock %}
+              {% endblock %}
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-    {% endblock %}
+      {% endblock %}
 
-    {% block content %}
-        {% for message in get_flashed_messages() %}
-        <div class="alert alert-warning">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            {{ message }}
+
+      {% block content %}
+        <div class="alertContaier">
+          {% for message in get_flashed_messages() %}
+          <div id="alert-warning" class="alert alert-warning">
+              {{ message }}
+              <button type="button" id="close" class="close" data-dismiss="alert">&times;</button>
+          </div>
+          {% endfor %}
         </div>
-        {% endfor %}
 
-        {% block page_content %}{% endblock %}
-    </div>
-    {% endblock %}
+            <button type="button" id="close" class="close" data-dismiss="alert" style="display: none;">&times;</button>
+<div class="container">
+          {% block page_content %} {% endblock %}
+</div>
+      {% endblock %}
 
-    {% block scripts %}
-      <script src="{{url_for('static', filename='scripts/jquery-3.2.1.min.js')}}"></script>
-    {% endblock %}
+
+      {% block scripts %}
+        <script src="{{url_for('static', filename='scripts/jquery-3.2.1.min.js')}}"></script>
+        <script src="{{url_for('static', filename='scripts/alert.js')}}"></script>
+      {% endblock %}
+
+</div>
 
   </body>
 </html>

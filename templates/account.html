@@ -24,25 +24,26 @@
 
 {% block page_content %}
 
-<div class="container" id ="loginContainer">
+
   <div class="midContainer">
-    <div class = "avatarPic">
-      <img src="{{url_for('static', filename='imgs/user.png')}}">
-      <!-- {{url_for('static', filename='imgs/user.png')}} -->
+
+    <div class="topAccInfo">
+      <div id="AvatarPic" class="avatarPic"></div>
+      <div class = "accountInfo">
+        <h1> {{ current_user.username }} </h1>
+      </div>
+      <div class = "accountOptions">
+        <button id="passBtn" class="accButton w3-button w3-round-xlarge">Change Password</a>
+        <button id="avatarBtn" class="accButton w3-button w3-round-xlarge">Change Avatar</a>
+      </div>
     </div>
-    <div class = "accountInfo">
-      <h1> {{ current_user.username }} </h1>
-    </div>
-    <div class = "accountOptions">
-      <button id ="passBtn" class="accButton w3-button w3-round-xlarge">Change Password</a>
-      <button class="accButton w3-button w3-round-xlarge">Change Avatar</a>
-    </div>
+    <div>
     <div class ="compTests">
     </div>
 
     <div id = "passPopup" class = "passPopup">
       <div class="passPopup-content">
-        <span class="close">&times;</span>
+        <span class="closePassPopup">&times;</span>
         <form action="{{ url_for('account') }}" method="POST">
         	<div class="loginS">
         		<div class="login-screen">
@@ -50,7 +51,7 @@
         				<h1>Change password:</h1>
         			</div>
               <form method = "POST">
-                {{ wtf.quick_form(form) }}
+                {{ wtf.quick_form(pass_form) }}
               </form>
         		</div>
         	</div>
@@ -58,13 +59,31 @@
       </div>
     </div>
 
-
+    <div id = "avatarPopup" class = "passPopup">
+      <div class="passPopup-content">
+        <span class="closeAvatarPopup">&times;</span>
+        <form action="{{ url_for('account') }}" method="POST">
+        	<div class="loginS">
+        		<div class="login-screen">
+        			<div class="app-title">
+        				<h1>Change password:</h1>
+        			</div>
+              <form method = "POST">
+                {{ wtf.quick_form(avatar_form) }}
+              </form>
+        		</div>
+        	</div>
+        </form>
+      </div>
+    </div>
   </div>
 </div>
-
 {% endblock %}
 
 {% block scripts %}
   {{ super() }}
   <script src="{{url_for('static', filename='scripts/script.js')}}"></script>
+  <script type="text/javascript">
+    var current_user_avatar = "{{ current_user.avatar_link }}";
+  </script>
 {% endblock %}

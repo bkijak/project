@@ -25,7 +25,6 @@ bootstrap = Bootstrap(app)
 login_manager = LoginManager(app)
 login_manager.session_protection = 'basic'
 login_manager.login_view = 'login.html'
-# login_manager.account_view = 'account.html'
 
 ###########################################
 ##################MODELS###################
@@ -48,6 +47,7 @@ class User(UserMixin, db.Model):
     username = db.Column(db.String(64), unique=True, index=True)
     role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
     password_hash = db.Column(db.String(128))
+    avatar_link = db.Column(db.String(255))
 
     @property
     def password(self):
@@ -66,10 +66,6 @@ class User(UserMixin, db.Model):
 
 # db.create_all()
 
-# k = User(email='a@a.com',
-#             username='asd',
-#             password='123')
-# db.session.add(k)
 ###########################################
 ##################VIEWS####################
 ###########################################
@@ -125,6 +121,7 @@ def register():
 @login_required
 def account():
     form = ChangePassForm()
+    form2 = ChangeAvatarForm()
     if form.validate_on_submit():
         if current_user.verify_password(form.currPass.data):
             current_user.password = form.newPass.data
@@ -134,7 +131,13 @@ def account():
             return redirect(url_for('account'))
         else:
             flash('Invalid current password')
-    return render_template('account.html', form=form)
+    if form2.validate_on_submit():
+        current_user.avatar_link = form2.imageLink.data
+        db.session.add(current_user)
+        db.session.commit()
+        flash('Avatar changed successfully')
+        return redirect(url_for('account'))
+    return render_template('account.html', pass_form=form, avatar_form=form2)
 
 @app.route('/learn/selectionSort')
 def selectionSort():
@@ -182,6 +185,9 @@ class ChangePassForm(FlaskForm):
     newPassConf = PasswordField('Confirm new password', validators=[DataRequired()])
     submit = SubmitField('Change password')
 
+class ChangeAvatarForm(FlaskForm):
+    imageLink = StringField('Image link', validators=[DataRequired()])
+    submitImg = SubmitField('Submit');
 
 ###########################################
 ##################RUN######################

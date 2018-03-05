@@ -5,7 +5,7 @@ $(document).ready(function() {
   var span = document.getElementsByClassName("closePassPopup")[0];
   var span2 = document.getElementsByClassName("closeAvatarPopup")[0];
   var avatarBtn = document.getElementById('avatarBtn');
-  var imageURL = 'https://medizzy.com/_nuxt/img/user-placeholder.d2a3ff8.png';
+  var imageURL = "https://medizzy.com/_nuxt/img/user-placeholder.d2a3ff8.png";
 
 
   btn.onclick = function() {
@@ -36,10 +36,12 @@ $(document).ready(function() {
     }
   }
 
-  if(current_user_avatar != null) {
+  if(current_user_avatar != "None") {
     AvatarPic.innerHTML = "<img src=\""+ current_user_avatar +"\">";
   }
-  else if (current_user_avatar == "") {
+  else if (current_user_avatar == "None") {
     AvatarPic.innerHTML = "<img src= \" "+ imageURL +" \" >";
   }
+
+  console.log(current_user_avatar);
 });

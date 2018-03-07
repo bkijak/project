@@ -42,5 +42,6 @@ $(document).ready(function() {
     AvatarPic.innerHTML = "<img src= \"/static/imgs/user.png\" >";
   }
 
-  console.log(current_user_avatar);
+
+
 });

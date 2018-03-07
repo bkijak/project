@@ -1,0 +1,8 @@
+1. Converting binary to decimal
+2. Converting decimal to binary
+3. Adding binary (decimal answer)
+4. Adding binary (binary answer)
+5. Subtracting binary (decimal answer)
+6. Subtracting binary (binary answer)
+
+

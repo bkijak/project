@@ -24,4 +24,13 @@
 
 {% block page_content %}
 
+<div class="midContainer" id="testQuestions">
+
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+  {{ super() }}
+  <script src="{{url_for('static', filename='scripts/test.js')}}"></script>
 {% endblock %}

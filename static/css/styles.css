@@ -330,6 +330,7 @@ color: black;
 	margin-top: 35%;
 }
 
+
 #leftButton:hover, #rightButton:hover {
 	transition:all 0.3s ease;
 	opacity: 0.8;
@@ -849,4 +850,26 @@ box-shadow: none;
   padding: 2px;
   width: 400px;
 	border-radius: 5px;
+}
+
+/****************************************************/
+/******************TEST PAGE*************************/
+/****************************************************/
+
+.questionContainer {
+	margin: 0 auto;
+	width: 700px;
+	padding: 20px 0;
+}
+
+.questionHeader {
+	color: #3187DD;
+	font-weight: 600;
+	font-size: 20px;
+}
+
+hr.lineStyle {
+	height: 10px;
+	border: 0;
+	box-shadow: 0 10px 20px -10px #8c8b8b inset;
 }

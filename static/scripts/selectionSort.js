@@ -20,7 +20,7 @@ function runSort() {
   timer = setInterval(animateSelectionSort, speed);
 }
 
-//Selection sort algorithm
+//Selection sort algorithm and to output the textual representation of the algorithm
 function selectionSort(array1) {
   for (var i = 0; i < array1.length-1; i++) {
     var text = "";

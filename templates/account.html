@@ -83,7 +83,5 @@
 {% block scripts %}
   {{ super() }}
   <script src="{{url_for('static', filename='scripts/script.js')}}"></script>
-  <script type="text/javascript">
-    var current_user_avatar = "{{ current_user.avatar_link }}";
-  </script>
+  <script type="text/javascript"> var current_user_avatar = "{{ current_user.avatar_link }}"; </script>
 {% endblock %}

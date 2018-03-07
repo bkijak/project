@@ -1,14 +1,14 @@
 $(document).ready(function() {
 
 var numOfQuestions = 10;
-var question1 = outputQType1(1);
-var question2 = outputQType1(2);
+var question1 = QType1(1);
+var question2 = QType1(2);
 testQuestions.innerHTML = question1[0];
 testQuestions.innerHTML += question2[0];
 
 //Outputs a binary - binary question
 //Returns [HTML string, answer]
-function outputQType1(questionNumber) {
+function QType1(questionNumber) {
   var outputString = "";
   var number = randomNumber(1,255);
   var number2 = randomNumber(1,255);

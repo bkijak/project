@@ -858,8 +858,8 @@ box-shadow: none;
 
 .questionContainer {
 	margin: 0 auto;
-	width: 700px;
-	padding: 20px 0;
+	padding: 40px 0;
+	box-shadow: inset 0px 0px 11px -3px rgba(0,0,0,0.75);
 }
 
 .questionHeader {

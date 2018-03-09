@@ -211,6 +211,7 @@ html, body, .all {
 	margin: 0;
 	padding: 0;
 	background-color: #dfdfdf;
+	overflow: auto;
 }
 
 .optionLinkSpan {
@@ -858,18 +859,83 @@ box-shadow: none;
 
 .questionContainer {
 	margin: 0 auto;
-	padding: 40px 0;
-	box-shadow: inset 0px 0px 11px -3px rgba(0,0,0,0.75);
+	padding-bottom: 60px;
+	background-color: white;
+	margin-bottom: 5px;
+}
+
+
+#submitTestArea {
+	padding: 20px 0;
+	text-align: right;
 }
 
 .questionHeader {
+	float: left;
+	height: 30px;
+	width: 930px;
 	color: #3187DD;
 	font-weight: 600;
 	font-size: 20px;
+	text-align: left;
+	margin-bottom: 10px;
+	margin-top: 10px;
+	margin-left: 30px;
+
 }
 
-hr.lineStyle {
-	height: 10px;
-	border: 0;
-	box-shadow: 0 10px 20px -10px #8c8b8b inset;
+#questionNumber {
+	margin: 0;
+	padding: 10px;
+	height: 40px;
+	width: 40px;
+	border-right: solid #3187DD 2px;
+	border-bottom: solid #3187DD 2px;
+	text-align: center;
+	border-bottom-right-radius: 20%;
+}
+
+#testQuestions {
+	background-color: #dfdfdf;
+}
+
+#submitTest {
+	font-weight: 600;
+	height: 60px;
+	width: 120px;
+	line-height: 1px;
+	vertical-align: middle;
+	background-color: #3187DD;
+	border: 0px;
+	color: white;
+	margin-right: 100px;
+}
+
+#submitTest:hover {
+	background-color: #68b3ff;
+	border: 0px;
+	color: white;
+}
+
+.binarySpan {
+	display: inline-block;
+	font-weight: 600;
+	font-size: 20px;
+	margin-top: 10px;
+	letter-spacing: 3px;
+}
+
+.testAnswerLabel {
+	display: inline-block;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.gateDiv img {
+	max-width: 200px;
+	max-height: 200px;
+}
+
+#gateInput {
+	margin-left: 20px;
 }

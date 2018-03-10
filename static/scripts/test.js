@@ -1,6 +1,4 @@
-$(document).ready(function() {
-
-// var numOfQuestions = 10;
+var numOfQuestions = 7;
 var question1 = QType1D(1);
 var question2 = QType2D(2);
 var question3 = QType3(3);
@@ -15,9 +13,57 @@ testQuestions.innerHTML += question4[0];
 testQuestions.innerHTML += question5[0];
 testQuestions.innerHTML += question6[0];
 testQuestions.innerHTML += question7[0];
-testQuestions.innerHTML += "<div class=questionContainer id='submitTestArea'> <input id = 'submitTest' type='button' value='Submit Test' onclick=''/> </div>";
+testQuestions.innerHTML += "<div class=questionContainer id='submitTestArea'>" +
+                           "<p> If you are logged in, your tests will be saved. You can access these on your account page. </p>" +
+                           "<input id = 'submitTest' class='testButton' type='button' value='Submit Test' onclick='submit()'/> </div>";
 
-//Outputs a binary - binary question
+function submit() {
+  //information from answer text boxes are saved as variables
+  var correct = 0;
+
+  var answer1 = document.getElementById("answer1").value;
+  var answer2 = document.getElementById("answer2").value;
+  var answer3 = document.getElementById("answer3").value;
+  var answer4 = document.getElementById("answer4").value;
+  var answer5 = document.getElementById("answer5").value;
+  var answer6 = document.getElementById("answer6").value;
+
+  var radios = document.getElementsByName('gate');
+  //for loop that loops through the radio options and determines which options is checked
+  //saves that option as an answer
+  for (var i = 0, length = radios.length; i < length; i++)
+  {
+   if (radios[i].checked)
+   {
+    var answer7 = radios[i].value;
+    break;
+   }
+  }
+
+  var userAnswer1 = question1[1];
+  var userAnswer2 = question2[1];
+  var userAnswer3 = question3[1];
+  var userAnswer4 = question4[1];
+  var userAnswer5 = question5[1];
+  var userAnswer6 = question6[1];
+  var userAnswer7 = question7[1];
+
+  if (answer1 == userAnswer1) {correct++}
+  if (answer2 == userAnswer2) {correct++}
+  if (answer3 == userAnswer3) {correct++}
+  if (answer4 == userAnswer4) {correct++}
+  if (answer5 == userAnswer5) {correct++}
+  if (answer6 == userAnswer6) {correct++}
+  if (answer7 == userAnswer7) {correct++}
+
+  console.log("Correct: ", correct);
+
+  testQuestions.innerHTML = "<div class=questionContainer id='resultsDiv'><span class='questionHeader'> Your score: " + correct + "/7 </span>" +
+                            "</div>";
+
+}
+
+//Outputs a binary - binary question (answer in decimal)
 //Returns [HTML string, answer]
 function QType1D(questionNumber) {
   var outputString = "";
@@ -38,7 +84,6 @@ function QType1D(questionNumber) {
   // console.log("binary2: ", binary2);
   // console.log("padded binary2: ", paddedBinary2);
 
-
   outputString = "<div class=questionContainer>   <span class='questionHeader' id='questionNumber'>" + questionNumber + " </span> <span class='questionHeader'> Subtract the bottom number from the top number </span>" +
                  "<br><span class='binarySpan'>" + paddedBinary + "</span><br><span class='binarySpan'>" + paddedBinary2 + "</span><br> <br> <label class='testAnswerLabel'> Answer (in decimal) </label> <br> <input type='text' name'answer' id='answer" +
                  questionNumber + "'" + "</div>";
@@ -46,6 +91,8 @@ function QType1D(questionNumber) {
   return [outputString, answer];
 }
 
+//Outputs a binary - binary question (answer in binary)
+//Returns [HTML string, answer]
 function QType1B(questionNumber) {
   var outputString = "";
   var number = randomNumber(1,255);
@@ -77,6 +124,8 @@ function QType1B(questionNumber) {
   return [outputString, answer];
 }
 
+//Outputs a binary + binary question (answer in decimal)
+//Returns [HTML string, answer]
 function QType2D(questionNumber) {
   var outputString = "";
   var number = randomNumber(1,255);
@@ -106,6 +155,8 @@ function QType2D(questionNumber) {
   return [outputString, answer];
 }
 
+//Outputs a binary + binary question (answer in binary)
+//Returns [HTML string, answer]
 function QType2B(questionNumber) {
   var outputString = "";
   var number = randomNumber(1,255);
@@ -137,6 +188,8 @@ function QType2B(questionNumber) {
   return [outputString, answer];
 }
 
+//Outputs a binary to decimal conversion question
+//Returns [HTML string, answer]
 function QType3(questionNumber) {
   var outputString = "";
   var number = randomNumber(1,255);
@@ -151,6 +204,8 @@ function QType3(questionNumber) {
   return [outputString, answer];
 }
 
+//Outputs a decimal to binary conversion question
+//Returns [HTML string, answer]
 function QType4(questionNumber) {
   var outputString = "";
   var number = randomNumber(1,255);
@@ -165,6 +220,8 @@ function QType4(questionNumber) {
   return [outputString, answer];
 }
 
+//Outputs a logic gate image question where the user has to name a logic gate
+//Returns [HTML string, answer]
 function QType5(questionNumber) {
   var outputString = "";
   var gateLocation = "";
@@ -197,16 +254,16 @@ function QType5(questionNumber) {
                  "<br><div class='gateDiv'>" + gateLocation + " <br><label class='testAnswerLabel'> Answer </label> <br>" + radioOptions +
                  "</div>";
 
- return [outputString, answer];
+  return [outputString, answer];
 }
 
+//Adds padding to a binary number if number < 8 bits in length
 function addPadding(number) {
   var a = ("00000000" + number).slice(-8);
   return a;
 }
 
+//Generates a random number
 function randomNumber(min,max) {
   return (Math.round((max-min) * Math.random() + min));
 }
-
-});

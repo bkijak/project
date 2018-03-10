@@ -864,6 +864,11 @@ box-shadow: none;
 	margin-bottom: 5px;
 }
 
+.questionContainer p {
+	display: inline-block;
+	margin-right: 50px;
+	color: #3187DD;
+}
 
 #submitTestArea {
 	padding: 20px 0;
@@ -899,7 +904,7 @@ box-shadow: none;
 	background-color: #dfdfdf;
 }
 
-#submitTest {
+.testButton {
 	font-weight: 600;
 	height: 60px;
 	width: 120px;
@@ -909,12 +914,23 @@ box-shadow: none;
 	border: 0px;
 	color: white;
 	margin-right: 100px;
+	border-radius: 8px;
 }
 
-#submitTest:hover {
+.testButton:hover {
 	background-color: #68b3ff;
 	border: 0px;
 	color: white;
+}
+
+#backToHome {
+	display: inline-block;
+	float: left;
+	text-decoration: none;
+	line-height: 60px;
+	vertical-align: middle;
+	margin-top: 60px;
+	margin-left: 50px;
 }
 
 .binarySpan {
@@ -938,4 +954,14 @@ box-shadow: none;
 
 #gateInput {
 	margin-left: 20px;
+}
+
+#resultsDiv {
+	height: 200px;
+	line-height: 150px;
+	vertical-align: middle;
+}
+
+#resultsDiv span {
+	text-align: center;
 }

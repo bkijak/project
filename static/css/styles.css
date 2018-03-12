@@ -870,6 +870,9 @@ box-shadow: none;
 	color: #3187DD;
 }
 
+.questionContainer input {
+	text-align: center;
+}
 #submitTestArea {
 	padding: 20px 0;
 	text-align: right;

@@ -37,8 +37,10 @@ testQuestions.innerHTML += "<div class=questionContainer id='submitTestArea'>" +
                            "<input id = 'submitTest' class='testButton' type='button' value='Submit Test' onclick='submit()'/> </div>";
 
 for (var i = 0; i < numOfQuestions; i++) {
-  console.log(questions[i][2]);
+  console.log("Correct answer", i , ": ", questions[i][2]);
 }
+
+
 
 function submit() {
   //information from answer text boxes are saved as variables
@@ -49,11 +51,15 @@ function submit() {
 
   //looping through answerVars as well as questions[] and adding user answers to questions[]
   for (var i = 0; i < numOfQuestions; i++) {
-    if(i != 8) {
-      questions[i][4] = document.getElementById(answerVars[i]).value;
-    }
+    if (i != 8) {
+      if (document.getElementById(answerVars[i]).value != "") {
+        questions[i][4] = document.getElementById(answerVars[i]).value;
+      }
+      else if (document.getElementById(answerVars[i]).value == "")
+          questions[i][4] = "blank";
+      }
 
-    //last question has a radio option instead of a text box
+    //9th question has a radio option instead of a text box
     else if (i == 8) {
       var radios = document.getElementsByName('gate');
       //for loop that loops through the radio options and determines which options is checked
@@ -75,6 +81,9 @@ function submit() {
     if (questions[i][4] == questions[i][2]) {correct++}
   }
 
+  for (var i = 0; i < numOfQuestions; i++) {
+    console.log("User answer", i , ": ", questions[i][4]);
+  }
   testQuestions.innerHTML = "<div class=questionContainer id='resultsDiv'><span class='questionHeader'> Your score: " + correct + "/" + numOfQuestions + " </span>" +
                             "</div>";
 
@@ -338,21 +347,20 @@ function QType6(questionNumber) {
     outputString = "<div class=questionContainer>   <span class='questionHeader' id='questionNumber'>" + questionNumber +
                    " </span> <span class='questionHeader'> Give the output of the following gate, given input 1 = " + input1 +
                    " and input 2 = " + input2 + " </span>" +
-                   "<br><div class='gateDiv'>" + gateLocation + " <br><label class='testAnswerLabel'> Answer </label> <br>" +
-                   "</div>";
+                   "<br><div class='gateDiv'>" + gateLocation + " <br><label class='testAnswerLabel'> Answer </label> <br> <input type='text' name'answer' id='answer" +
+                   questionNumber + "'" + "</div>";
     question = "Give the output of the following gate, given input 1 = " + input1 + " and input 2 = " + input2 + gateLocation;
   }
   else if (inputs == 1) {
     outputString = "<div class=questionContainer>   <span class='questionHeader' id='questionNumber'>" + questionNumber +
                    " </span> <span class='questionHeader'> Give the output of the following gate, given input 1 = " + input1 + " </span>" +
-                   "<br><div class='gateDiv'>" + gateLocation + " <br><label class='testAnswerLabel'> Answer </label> <br>" +
-                   "</div>";
+                   "<br><div class='gateDiv'>" + gateLocation + " <br><label class='testAnswerLabel'> Answer </label> <br> <input type='text' name'answer' id='answer" +
+                   questionNumber + "'" + "</div>";
     question = "Give the output of the following gate, given input 1 = " + input1 + gateLocation;
   }
 
   question = "Name the following logic gate: " + gateLocation;
   var a = questionNumber;
-  console.log(question, questionNumber, answer, outputString);
   return [a, question, answer, outputString];
 }
 

@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, flash, redirect, url_for
+from flask import Flask, render_template, flash, redirect, url_for, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import FlaskForm
 from wtforms import BooleanField, validators, StringField, SubmitField, PasswordField
@@ -7,6 +7,7 @@ from wtforms.validators import DataRequired, Regexp, EqualTo, Email, ValidationE
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin, LoginManager, login_required, login_manager, login_user, logout_user, current_user
 from flask_bootstrap import Bootstrap
+import json
 
 ###########################################
 ##################CONFIG###################
@@ -85,6 +86,11 @@ def learn():
 @app.route('/test')
 def test():
     return render_template('test.html')
+
+@app.route('/_array2python')
+def array2python():
+    list = json.loads(request.args.get('questionsList'))
+    return jsonify(result=list)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():

@@ -33,4 +33,5 @@
 {% block scripts %}
   {{ super() }}
   <script src="{{url_for('static', filename='scripts/test.js')}}"></script>
+  <script> $SCRIPT_ROOT = {{ request.script_root|tojson|safe }}; </script>
 {% endblock %}

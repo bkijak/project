@@ -1,51 +1,52 @@
-//number of questions in the test
-var numOfQuestions = 10;
+$(document).ready(function(){
+  //number of questions in the test
+  var numOfQuestions = 10;
 
-//1D = binary-binary=decimal
-//1B = binary-binary=binary
-//2D = binary+binary=decimal
-//2B = binary+binary=binary
-//3 = binary to decimal
-//4 = decimal to binary
-//5 = logic gate name
+  //1D = binary-binary=decimal
+  //1B = binary-binary=binary
+  //2D = binary+binary=decimal
+  //2B = binary+binary=binary
+  //3 = binary to decimal
+  //4 = decimal to binary
+  //5 = logic gate name
 
-//Initialising a 2d array
-// var questions = Array.from(Array(9), () => new Array(4));
-var questions = [];
-questions[0] = QType3(1);
-questions[1] = QType3(2);
-questions[2] = QType4(3);
-questions[3] = QType4(4);
-questions[4] = QType2D(5);
-questions[5] = QType2B(6);
-questions[6] = QType1D(7);
-questions[7] = QType1B(8);
-questions[8] = QType5(9);
-questions[9] = QType6(10);
-testQuestions.innerHTML = questions[0][3];
-testQuestions.innerHTML += questions[1][3];
-testQuestions.innerHTML += questions[2][3];
-testQuestions.innerHTML += questions[3][3];
-testQuestions.innerHTML += questions[4][3];
-testQuestions.innerHTML += questions[5][3];
-testQuestions.innerHTML += questions[6][3];
-testQuestions.innerHTML += questions[7][3];
-testQuestions.innerHTML += questions[8][3];
-testQuestions.innerHTML += questions[9][3];
-testQuestions.innerHTML += "<div class=questionContainer id='submitTestArea'>" +
-                           "<p> If you are logged in, your tests will be saved. You can access these on your account page. </p>" +
-                           "<input id = 'submitTest' class='testButton' type='button' value='Submit Test' onclick='submit()'/> </div>";
+  //Initialising a 2d array
+  // var questions = Array.from(Array(9), () => new Array(4));
+  window.questions = [];
+  questions[0] = QType3(1);
+  questions[1] = QType3(2);
+  questions[2] = QType4(3);
+  questions[3] = QType4(4);
+  questions[4] = QType2D(5);
+  questions[5] = QType2B(6);
+  questions[6] = QType1D(7);
+  questions[7] = QType1B(8);
+  questions[8] = QType5(9);
+  questions[9] = QType6(10);
+  testQuestions.innerHTML = questions[0][3];
+  testQuestions.innerHTML += questions[1][3];
+  testQuestions.innerHTML += questions[2][3];
+  testQuestions.innerHTML += questions[3][3];
+  testQuestions.innerHTML += questions[4][3];
+  testQuestions.innerHTML += questions[5][3];
+  testQuestions.innerHTML += questions[6][3];
+  testQuestions.innerHTML += questions[7][3];
+  testQuestions.innerHTML += questions[8][3];
+  testQuestions.innerHTML += questions[9][3];
+  testQuestions.innerHTML += "<div class=questionContainer id='submitTestArea'>" +
+                             "<p> If you are logged in, your tests will be saved. You can access these on your account page. </p>" +
+                             "<input id = 'submitTest' class='testButton' type='button' value='Submit Test' onclick='submit()'/> </div>";
 
-for (var i = 0; i < numOfQuestions; i++) {
-  console.log("Correct answer", i , ": ", questions[i][2]);
-}
+  for (var i = 0; i < numOfQuestions; i++) {
+    console.log("Correct answer", i , ": ", questions[i][2]);
+  }
+});
 
 
-
-function submit() {
+function submit(numOfQuestions) {
   //information from answer text boxes are saved as variables
   var correct = 0;
-
+  var numOfQuestions = 10;
   //array of strings corresponding to answer boxes on the test page
   var answerVars = ["answer1", "answer2", "answer3", "answer4", "answer5", "answer6", "answer7", "answer8", "", "answer10"];
 
@@ -86,6 +87,15 @@ function submit() {
   }
   testQuestions.innerHTML = "<div class=questionContainer id='resultsDiv'><span class='questionHeader'> Your score: " + correct + "/" + numOfQuestions + " </span>" +
                             "</div>";
+
+    $.getJSON($SCRIPT_ROOT + '/_array2python', {
+            list :  JSON.stringify(questions[0])
+        }, function(data){
+            console.log(data.result)
+            $( "#result" ).text(data.result);
+    });
+
+
 
 }
 

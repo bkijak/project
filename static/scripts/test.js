@@ -37,13 +37,39 @@ $(document).ready(function(){
                              "<p> If you are logged in, your tests will be saved. You can access these on your account page. </p>" +
                              "<input id = 'submitTest' class='testButton' type='button' value='Submit Test' onclick='submit()'/> </div>";
 
-  for (var i = 0; i < numOfQuestions; i++) {
-    console.log("Correct answer", i , ": ", questions[i][2]);
-  }
 });
 
+//function that converts an array into an Object
+//object contains variables: questionNumber, question, answer and htmlOutput
+function toObject(arr) {
+  var rv = new Object();
+  rv.questionNumber = "";
+  rv.question = "";
+  rv.answer = "";
+  rv.userAnswer = "";
+  rv.setQuestionNumber = function(a) {
+    this.questionNumber = a;
+  }
+  rv.setQuestion = function(a) {
+    this.question = a;
+  }
+  rv.setAnswer = function(a) {
+    this.answer = a;
+  }
+  rv.setUserAnswer = function(a) {
+    this.userAnswer = a;
+  }
 
-function submit(numOfQuestions) {
+  rv.setQuestionNumber(arr[0]);
+  rv.setQuestion(arr[1]);
+  rv.setAnswer(arr[2]);
+  rv.setUserAnswer(arr[4]);
+  return rv;
+}
+
+function submit() {
+
+
   //information from answer text boxes are saved as variables
   var correct = 0;
   var numOfQuestions = 10;
@@ -88,15 +114,38 @@ function submit(numOfQuestions) {
   testQuestions.innerHTML = "<div class=questionContainer id='resultsDiv'><span class='questionHeader'> Your score: " + correct + "/" + numOfQuestions + " </span>" +
                             "</div>";
 
-    $.getJSON($SCRIPT_ROOT + '/_array2python', {
-            list :  JSON.stringify(questions[0])
-        }, function(data){
-            console.log(data.result)
-            $( "#result" ).text(data.result);
+  var questionObj0 = toObject(questions[0]);
+  var questionObj1 = toObject(questions[1]);
+  var questionObj2 = toObject(questions[2]);
+  var questionObj3 = toObject(questions[3]);
+  var questionObj4 = toObject(questions[4]);
+  var questionObj5 = toObject(questions[5]);
+  var questionObj6 = toObject(questions[6]);
+  var questionObj7 = toObject(questions[7]);
+  var questionObj8 = toObject(questions[8]);
+  var questionObj9 = toObject(questions[9]);
+
+  console.log("OBJECT0: ", questionObj0);
+  var test = JSON.stringify(questionObj0);
+  console.log(questionObj0);
+  var obj = {questionNumber: 1, question: "Convert 10110001 to decimal", answer: 177, userAnswer: "blank"};
+  console.log(JSON.stringify(obj));
+  
+  $.ajax({
+    type: 'POST',
+    url: window.location.href,
+    data: JSON.stringify(obj),
+    contentType: 'application/json; charset=utf-8',
+    dataType: 'json'
+    }).done(function(msg) {
+      console.log(msg);
     });
 
-
-
+				// $.getJSON('/test', {
+				//   data: $('questionObj0'),
+				// }, function(data) {
+				//   $("#result").text(data.result);
+				// });
 }
 
 //Outputs a binary - binary question (answer in decimal)

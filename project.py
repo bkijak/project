@@ -83,14 +83,15 @@ def index2():
 def learn():
     return render_template('learn.html')
 
-@app.route('/test')
+@app.route('/test', methods=['GET', 'POST'])
 def test():
-    return render_template('test.html')
+    if request.method == 'POST':
+        question = request.get_json()
+        print(question['question'])
+        return render_template('test.html')
 
-@app.route('/_array2python')
-def array2python():
-    list = json.loads(request.args.get('questionsList'))
-    return jsonify(result=list)
+    if request.method == 'GET':
+        return render_template('test.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():

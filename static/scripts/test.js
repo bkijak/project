@@ -43,10 +43,11 @@ $(document).ready(function(){
 //object contains variables: questionNumber, question, answer and htmlOutput
 function toObject(arr) {
   var rv = new Object();
-  rv.questionNumber = "";
+  rv.questionNumber = 0;
   rv.question = "";
   rv.answer = "";
   rv.userAnswer = "";
+  rv.correct = 0;
   rv.setQuestionNumber = function(a) {
     this.questionNumber = a;
   }
@@ -59,11 +60,15 @@ function toObject(arr) {
   rv.setUserAnswer = function(a) {
     this.userAnswer = a;
   }
+  rv.setCorrect = function(a) {
+    this.correct = a;
+  }
 
   rv.setQuestionNumber(arr[0]);
   rv.setQuestion(arr[1]);
   rv.setAnswer(arr[2]);
   rv.setUserAnswer(arr[4]);
+  rv.setCorrect(arr[5]);
   return rv;
 }
 
@@ -104,8 +109,14 @@ function submit() {
 
   //comparing user answers to correct ones generated when the questions is generated
   //incrementing correct if user answer is the same as generated answer
+  //assigning correct boolean to the array
   for (var i = 0; i < numOfQuestions; i++) {
-    if (questions[i][4] == questions[i][2]) {correct++}
+    var correctBool = 0
+    if (questions[i][4] == questions[i][2]) {
+      correctBool = 1;
+      correct++
+    }
+    questions[i][5] = correctBool;
   }
 
   for (var i = 0; i < numOfQuestions; i++) {
@@ -124,28 +135,23 @@ function submit() {
   var questionObj7 = toObject(questions[7]);
   var questionObj8 = toObject(questions[8]);
   var questionObj9 = toObject(questions[9]);
+  var objectArray = [questionObj0, questionObj1, questionObj2, questionObj3, questionObj4, questionObj5, questionObj6, questionObj7, questionObj8, questionObj9];
 
   console.log("OBJECT0: ", questionObj0);
   var test = JSON.stringify(questionObj0);
-  console.log(questionObj0);
+  console.log(test);
   var obj = {questionNumber: 1, question: "Convert 10110001 to decimal", answer: 177, userAnswer: "blank"};
   console.log(JSON.stringify(obj));
-  
+
   $.ajax({
     type: 'POST',
     url: window.location.href,
-    data: JSON.stringify(obj),
+    data: JSON.stringify(objectArray),
     contentType: 'application/json; charset=utf-8',
     dataType: 'json'
     }).done(function(msg) {
       console.log(msg);
     });
-
-				// $.getJSON('/test', {
-				//   data: $('questionObj0'),
-				// }, function(data) {
-				//   $("#result").text(data.result);
-				// });
 }
 
 //Outputs a binary - binary question (answer in decimal)

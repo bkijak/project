@@ -86,8 +86,10 @@ def learn():
 @app.route('/test', methods=['GET', 'POST'])
 def test():
     if request.method == 'POST':
-        question = request.get_json()
-        print(question['question'])
+        questions = request.get_json()
+        for i in range(0, 10):
+            print(questions[i])
+            print("\n")
         return render_template('test.html')
 
     if request.method == 'GET':

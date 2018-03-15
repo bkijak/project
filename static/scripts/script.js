@@ -35,12 +35,26 @@ $(document).ready(function() {
     }
   }
 
-  if(current_user_avatar != "None") {
-    AvatarPic.innerHTML = "<img src=\""+ current_user_avatar +"\">";
+  if(current_user_admin == "True") {
+    if(current_user_avatar != "None") {
+      AvatarPic.innerHTML = "<img class='adminImg' src=\""+ current_user_avatar +"\">";
+    }
+    else if (current_user_avatar == "None") {
+      AvatarPic.innerHTML = "<img class='adminImg' src= \"/static/imgs/admin.png\" >";
+    }
   }
-  else if (current_user_avatar == "None") {
-    AvatarPic.innerHTML = "<img src= \"/static/imgs/user.png\" >";
+
+  else {
+    if(current_user_avatar != "None") {
+      AvatarPic.innerHTML = "<img class='userImg' src=\""+ current_user_avatar +"\">";
+    }
+    else if (current_user_avatar == "None") {
+      AvatarPic.innerHTML = "<img class='userImg' src= \"/static/imgs/user.png\" >";
+    }
   }
+
+
+
 
 
 

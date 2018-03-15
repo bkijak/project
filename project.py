@@ -7,7 +7,7 @@ from wtforms.validators import DataRequired, Regexp, EqualTo, Email, ValidationE
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin, LoginManager, login_required, login_manager, login_user, logout_user, current_user
 from flask_bootstrap import Bootstrap
-import json
+import json, time, datetime
 
 ###########################################
 ##################CONFIG###################
@@ -31,24 +31,16 @@ login_manager.login_view = 'login.html'
 ##################MODELS###################
 ###########################################
 
-class Role(db.Model):
-    __tablename__ = 'roles'
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(64), unique=True)
-    users = db.relationship('User', backref='role', lazy='dynamic')
-
-    def __repr__(self):
-        return '<Role %r>' % self.name
-
-
 class User(UserMixin, db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(64), unique = True, index = True)
-    username = db.Column(db.String(64), unique=True, index=True)
-    role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
+    username = db.Column(db.String(64), index=True)
     password_hash = db.Column(db.String(128))
     avatar_link = db.Column(db.String(255))
+    date = db.Column(db.String(64))
+    is_admin = db.Column(db.Boolean)
+    tests = db.relationship('Test', backref='user', lazy='dynamic')
 
     @property
     def password(self):
@@ -64,6 +56,23 @@ class User(UserMixin, db.Model):
     def __repr__(self):
         return '<User %r>' % self.username
 
+class Test(db.Model):
+    __tablename__ = 'tests'
+    id = db.Column(db.Integer, primary_key=True)
+    timestamp = db.Column(db.DateTime, index=True, default=datetime.datetime.now)
+    percentage = db.Column(db.Integer)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    questions = db.relationship('Question', backref='test', lazy='dynamic')
+
+class Question(db.Model):
+    __tablename__ = 'questions'
+    id = db.Column(db.Integer, primary_key=True)
+    question_number = db.Column(db.Integer)
+    question = db.Column(db.Text)
+    correct_answer = db.Column(db.Text)
+    user_answer = db.Column(db.Text)
+    correct = db.Column(db.Boolean)
+    test_id = db.Column(db.Integer, db.ForeignKey('tests.id'))
 
 # db.create_all()
 
@@ -75,10 +84,6 @@ class User(UserMixin, db.Model):
 def index():
     return render_template('index.html')
 
-@app.route('/index', methods=['GET', 'POST'])
-def index2():
-    return render_template('index.html')
-
 @app.route('/learn', methods=['GET', 'POST'])
 def learn():
     return render_template('learn.html')
@@ -87,9 +92,14 @@ def learn():
 def test():
     if request.method == 'POST':
         questions = request.get_json()
+        correct = 0
         for i in range(0, 10):
-            print(questions[i])
-            print("\n")
+            if questions[i]['correct'] == 1:
+                correct += 1
+        test = Test(percentage = correct,
+                    user_id=current_user._get_current_object())
+        db.session.add(Test)
+        db.session.commit()
         return render_template('test.html')
 
     if request.method == 'GET':
@@ -102,7 +112,7 @@ def login():
         user = User.query.filter_by(email = form.email.data).first()
         if user is not None and user.verify_password(form.password.data):
             login_user(user, form.remember_me.data)
-            return redirect(url_for('index'))
+            return redirect(url_for('account'))
         flash('Please provide a valid email or password')
     return render_template('login.html', form=form)
 
@@ -116,10 +126,19 @@ def logout():
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegisterForm()
+    date = time.strftime("%d/%m/%Y")
+    specialPass = "admin2018"
     if form.validate_on_submit():
+        if form.adminPassword.data == specialPass:
+            admin = 1
+        else:
+            admin = 0
+
         user = User(email=form.email.data,
                     username=form.userName.data,
-                    password=form.password.data)
+                    password=form.password.data,
+                    date=date,
+                    is_admin = admin)
         db.session.add(user)
         db.session.commit()
         flash('Account creation successful')
@@ -177,6 +196,7 @@ class RegisterForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired(),
                                                     EqualTo('passwordVal', message='Passwords must match')])
     passwordVal = PasswordField('Confirm password', validators=[DataRequired()])
+    adminPassword = PasswordField('Administrator password')
     submit = SubmitField('Register')
 
     def validate_email(self, field):

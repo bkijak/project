@@ -28,7 +28,8 @@
     <div class="topAccInfo">
       <div id="AvatarPic" class="avatarPic"></div>
       <div class = "accountInfo">
-        <h1> {{ current_user.username }} </h1>
+        <h1>Name: {{ current_user.username }} </h1>
+        <h1>Account created: {{ current_user.date }} </h1>
       </div>
       <div class = "accountOptions">
         <button id="passBtn" class="accButton w3-button w3-round-xlarge">Change Password</a>
@@ -82,4 +83,6 @@
   {{ super() }}
   <script src="{{url_for('static', filename='scripts/script.js')}}"></script>
   <script type="text/javascript"> var current_user_avatar = "{{ current_user.avatar_link }}"; </script>
+  <script type="text/javascript"> var current_user_admin = "{{ current_user.is_admin }}"; </script>
+
 {% endblock %}

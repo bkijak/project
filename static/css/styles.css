@@ -95,6 +95,7 @@ html, body, .all {
 	margin: 0 auto;
 	width: 900px;
 	background-color: white;
+	border-radius: 3px;
 }
 
 .alert-warning {
@@ -755,19 +756,29 @@ box-shadow: none;
 	height: 200px;
 	margin-top: 30px;
 	border-radius: 50%;
+
 }
 
-.avatarPic img {
+.userImg {
 	max-width: 200px;
 	max-height: 200px;
 	min-width: 200px;
 	min-height: 200px;
 	border-radius: 50%;
+	border: #3187DD 5px solid;
+}
+
+.adminImg {
+	max-width: 200px;
+	max-height: 200px;
+	min-width: 200px;
+	min-height: 200px;
+	border-radius: 50%;
+	border: #ff5242 5px solid;
 }
 
 .accountInfo {
 	display: inline-block;
-	background-color: green;
 	width: 400px;
 	height: 100px;
 	vertical-align: top;

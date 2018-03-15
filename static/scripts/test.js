@@ -100,9 +100,13 @@ function submit() {
       {
        if (radios[j].checked)
        {
-        questions[i][4] = radios[j].value;
-        break;
+         questions[i][4] = radios[j].value;
+         break;
        }
+      }
+      console.log(questions[i][4]);
+      if(questions[i][4] === undefined) {
+        questions[i][4] = "blank";
       }
     }
   }
@@ -122,7 +126,7 @@ function submit() {
   for (var i = 0; i < numOfQuestions; i++) {
     console.log("User answer", i , ": ", questions[i][4]);
   }
-  testQuestions.innerHTML = "<div class=questionContainer id='resultsDiv'><span class='questionHeader'> Your score: " + correct + "/" + numOfQuestions + " </span>" +
+  testQuestions.innerHTML = "<div class=questionContainer id='resultsDiv'><span class='questionHeader'> You got " + correct + " out of " + numOfQuestions + " questions correct. </span>" +
                             "</div>";
 
   var questionObj0 = toObject(questions[0]);

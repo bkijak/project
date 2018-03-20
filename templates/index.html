@@ -25,7 +25,7 @@
 <div class = "indexContainer">
   <div class = "button" id = "leftButton">
     <!-- <img src="{{url_for('static', filename='imgs/uea1.jpg')}}" /> -->
-    <a href="learn"><span class = "linkSpan"></span></a>
+    <a href="{{ url_for('learn') }}"><span class = "linkSpan"></span></a>
     <h2> Learn Computing </h2>
     <p>Learn computing from a range of topics. This section <br>
       will provide you with demonstrations on binary, <br>
@@ -33,7 +33,7 @@
   </div>
   <div class="separator"> </div>
   <div class = "button" id = "rightButton">
-    <a href="http://www.google.com"><span class = "linkSpan"></span></a>
+    <a href="{{ url_for('test') }}"><span class = "linkSpan"></span></a>
     <h2> Test your Knowledge </h2>
     <p>Test your knowledge on a range of computing topics. <br>
       This section will allow you to take quizzes on topics <br>

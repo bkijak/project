@@ -62,6 +62,7 @@ class Test(db.Model):
     timestamp = db.Column(db.DateTime, index=True, default=datetime.datetime.now)
     percentage = db.Column(db.Integer)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    user_name = db.Column(db.Text)
     questions = db.relationship('Question', backref='test', lazy='dynamic')
 
 class Question(db.Model):
@@ -74,7 +75,7 @@ class Question(db.Model):
     correct = db.Column(db.Boolean)
     test_id = db.Column(db.Integer, db.ForeignKey('tests.id'))
 
-# db.create_all()
+db.create_all()
 
 ###########################################
 ##################VIEWS####################
@@ -91,15 +92,38 @@ def learn():
 @app.route('/test', methods=['GET', 'POST'])
 def test():
     if request.method == 'POST':
+        userName = current_user.username
         questions = request.get_json()
         correct = 0
         for i in range(0, 10):
             if questions[i]['correct'] == 1:
                 correct += 1
-        test = Test(percentage = correct,
-                    user_id=current_user._get_current_object())
-        db.session.add(Test)
+
+        test = Test(percentage = correct*10,
+                    user = current_user._get_current_object(),
+                    user_name = userName)
+        db.session.add(test)
+        db.session.flush()
+        db.session.refresh(test)
+        currentTestID = test.id
         db.session.commit()
+
+        for i in range(0, 10):
+            questionNumber = questions[i]['questionNumber']
+            question = questions[i]['question']
+            correctAnswer = questions[i]['answer']
+            userAnswer = questions[i]['userAnswer']
+            isCorrect = questions[i]['correct']
+
+            question = Question(question_number = questionNumber,
+                                question = question,
+                                correct_answer = correctAnswer,
+                                user_answer = userAnswer,
+                                correct = isCorrect,
+                                test_id = currentTestID)
+            db.session.add(question)
+            db.session.commit()
+
         return render_template('test.html')
 
     if request.method == 'GET':

@@ -125,14 +125,17 @@ def logout():
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
+    with open('pass.txt', 'r') as myfile:
+        adminPass=myfile.read()
     form = RegisterForm()
     date = time.strftime("%d/%m/%Y")
-    specialPass = "admin2018"
     if form.validate_on_submit():
-        if form.adminPassword.data == specialPass:
+        if form.adminPassword.data == adminPass:
             admin = 1
+            toFlash = 'Administrator account created'
         else:
             admin = 0
+            toFlash = 'User account created'
 
         user = User(email=form.email.data,
                     username=form.userName.data,
@@ -141,7 +144,7 @@ def register():
                     is_admin = admin)
         db.session.add(user)
         db.session.commit()
-        flash('Account creation successful')
+        flash(toFlash)
         return redirect(url_for('login'))
     return render_template('register.html', form=form)
 

@@ -75,7 +75,7 @@ class Question(db.Model):
     correct = db.Column(db.Boolean)
     test_id = db.Column(db.Integer, db.ForeignKey('tests.id'))
 
-db.create_all()
+# db.create_all()
 
 ###########################################
 ##################VIEWS####################
@@ -92,39 +92,42 @@ def learn():
 @app.route('/test', methods=['GET', 'POST'])
 def test():
     if request.method == 'POST':
-        userName = current_user.username
-        questions = request.get_json()
-        correct = 0
-        for i in range(0, 10):
-            if questions[i]['correct'] == 1:
-                correct += 1
+        if current_user.is_authenticated:
+            userName = current_user.username
+            questions = request.get_json()
+            correct = 0
+            for i in range(0, 10):
+                if questions[i]['correct'] == 1:
+                    correct += 1
 
-        test = Test(percentage = correct*10,
-                    user = current_user._get_current_object(),
-                    user_name = userName)
-        db.session.add(test)
-        db.session.flush()
-        db.session.refresh(test)
-        currentTestID = test.id
-        db.session.commit()
-
-        for i in range(0, 10):
-            questionNumber = questions[i]['questionNumber']
-            question = questions[i]['question']
-            correctAnswer = questions[i]['answer']
-            userAnswer = questions[i]['userAnswer']
-            isCorrect = questions[i]['correct']
-
-            question = Question(question_number = questionNumber,
-                                question = question,
-                                correct_answer = correctAnswer,
-                                user_answer = userAnswer,
-                                correct = isCorrect,
-                                test_id = currentTestID)
-            db.session.add(question)
+            test = Test(percentage = correct*10,
+                        user = current_user._get_current_object(),
+                        user_name = userName)
+            db.session.add(test)
+            db.session.flush()
+            db.session.refresh(test)
+            currentTestID = test.id
             db.session.commit()
 
-        return render_template('test.html')
+            for i in range(0, 10):
+                questionNumber = questions[i]['questionNumber']
+                question = questions[i]['question']
+                correctAnswer = questions[i]['answer']
+                userAnswer = questions[i]['userAnswer']
+                isCorrect = questions[i]['correct']
+
+                question = Question(question_number = questionNumber,
+                                    question = question,
+                                    correct_answer = correctAnswer,
+                                    user_answer = userAnswer,
+                                    correct = isCorrect,
+                                    test_id = currentTestID)
+                db.session.add(question)
+                db.session.commit()
+
+            return render_template('test.html')
+        else:
+            return render_template('test.html')
 
     if request.method == 'GET':
         return render_template('test.html')
@@ -192,7 +195,23 @@ def account():
         db.session.commit()
         flash('Avatar changed successfully')
         return redirect(url_for('account'))
+
     return render_template('account.html', pass_form=form, avatar_form=form2)
+
+def loadTests():
+    tests = db.session.query(Test).filter_by(user_id=current_user.id).all()
+    testInfo = []
+    for test in tests:
+        id = test.id
+        timestamp = test.timestamp
+        percentage = test.percentage
+        user_id = test.user_id
+        user_name = test.user_name
+        a = TestObj(id, timestamp, percentage, user_id, user_name)
+        testInfo.append(a)
+    json_string = json.dumps([ob.__dict__ for ob in testInfo], default = myconverter)
+    print(json_string)
+    return json_string
 
 @app.route('/learn/selectionSort')
 def selectionSort():
@@ -206,7 +225,47 @@ def insertionSort():
 def load_user(user_id):
     return User.query.get(int(user_id))
 
+class TestObj:
+    def __init__(self, id, timestamp, percentage, user_id, user_name):
+        self.id = id
+        self.timestamp = timestamp
+        self.percentage = percentage
+        self.user_id = user_id
+        self.user_name = user_name
 
+    def __str__(self):
+        return  str(self.__class__) + '\n'+ '\n'.join(('{} = {}'.format(item, self.__dict__[item]) for item in self.__dict__))
+
+# def make_testObj(id, timestamp, percentage, user_id, user_name):
+#     test = TestObj()
+#     test.id = id
+#     test.timestamp = timestamp
+#     test.percentage = percentage
+#     test.user_id = user_id
+#     test.user_name = user_name
+#     return test
+
+class QuestionObj(object):
+    id = 0
+    question_number = 0
+    question = ""
+    correct_answer = ""
+    user_answer = ""
+    correct = 0
+
+def make_questionObj(id, question_number, question, correct_answer, user_answer, correct):
+    question = QuestionObj()
+    question.id = id
+    question.question_number = question_number
+    question.question = question
+    question.correct_answer = correct_answer
+    question.user_answer = user_answer
+    question.correct = correct
+    return question
+
+def myconverter(o):
+    if isinstance(o, datetime.datetime):
+        return o.__str__()
 ###########################################
 ##################FORMS####################
 ###########################################

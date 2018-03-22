@@ -513,8 +513,9 @@ box-shadow: none;
 	margin: 0 auto;
 	background-color: white;
 	text-align: center;
-	height: inherit;
+	height: auto;
 	flex-flow: column;
+	display: block;
 }
 
 .categoryContainer {

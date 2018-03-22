@@ -38,14 +38,22 @@
     </div>
     <div>
     <div class ="compTests">
-      <p id="p1">Replace this text</p>
-      <script>
-          $.getJSON('/account',function(data) {
-              // here, we have the data object returned by 'price' endpoint
-              // you can access its attributes as a regular JSON object
-              document.getElementById("p1").innerHTML = data.value;
-          });
-      </script>
+
+      {% for test in tests1 %}
+        {% if (test.percentage >= 40) %}
+        <div class="testResult" id="passedTest">
+          <p> Submitted: {{ test.timestamp.strftime("%Y-%m-%d %H:%M:%S") }} </p>
+          <p> Result: {{ test.percentage }}% </p>
+        </div>
+        {% endif %}
+
+        {% if (test.percentage < 40) %}
+        <div class="testResult" id="failedTest">
+          <p> Submitted: {{ test.timestamp.strftime("%Y-%m-%d %H:%M:%S") }} </p>
+          <p> Result: {{ test.percentage }}% </p>
+        </div>
+        {% endif %}
+      {% endfor %}
     </div>
 
     <div id = "passPopup" class = "passPopup">

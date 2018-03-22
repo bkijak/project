@@ -196,9 +196,6 @@ def account():
         flash('Avatar changed successfully')
         return redirect(url_for('account'))
 
-    return render_template('account.html', pass_form=form, avatar_form=form2)
-
-def loadTests():
     tests = db.session.query(Test).filter_by(user_id=current_user.id).all()
     testInfo = []
     for test in tests:
@@ -209,9 +206,10 @@ def loadTests():
         user_name = test.user_name
         a = TestObj(id, timestamp, percentage, user_id, user_name)
         testInfo.append(a)
-    json_string = json.dumps([ob.__dict__ for ob in testInfo], default = myconverter)
-    print(json_string)
-    return json_string
+    # json_string = json.dumps([ob.__dict__ for ob in testInfo], default = myconverter)
+    # print(json_string)
+
+    return render_template('account.html', pass_form=form, avatar_form=form2, tests1=testInfo)
 
 @app.route('/learn/selectionSort')
 def selectionSort():

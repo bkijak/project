@@ -801,15 +801,6 @@ box-shadow: none;
 	margin-top: 80px;
 }
 
-.compTests {
-	display: flex;
-	margin: 0 auto;
-	width: 800px;
-	height: 100px;
-	background-color: yellow;
-	margin-top: 40px;
-}
-
 .accButton {
 	width: 200px;
 	height: 40px;
@@ -862,6 +853,43 @@ box-shadow: none;
   padding: 2px;
   width: 400px;
 	border-radius: 5px;
+}
+
+.compTests {
+	margin: 0 auto;
+	width: 800px;
+	margin-top: 40px;
+}
+
+.testResult {
+	width: 800px;
+	display: inline-flex;
+	height: 40px;
+	line-height: 40px;
+	vertical-align: middle;
+	border-radius: 4px;
+	margin-bottom: 7px;
+}
+
+.testResult p {
+	width: 50%;
+	font-weight: bold;
+}
+
+#passedTest {
+	background-color: #afff9e;
+}
+
+#passedTest:hover {
+	background-color: #80ff66;
+}
+
+#failedTest {
+	background-color: #ffa8a8;
+}
+
+#failedTest:hover {
+	background-color: #f97a7a;
 }
 
 /****************************************************/

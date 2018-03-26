@@ -24,26 +24,72 @@
 
 {% block page_content %}
   <div class="midContainer">
-    <p> Test ID: {{ test.id }} </p>
-    <p> Test submitted: {{ test.timestamp }} </p>
-    <p> Test percentage: {{ test.percentage }} </p>
-    <p> Test user ID: {{ test.user_id }} </p>
-    <p> Test user: {{ test.user_name }} </p>
+    <div class="generalTestInfo">
+      <p> Submitted: {{ test.timestamp.strftime("%Y-%m-%d %H:%M:%S") }} </p>
+      <p> Test percentage: {{ test.percentage }} </p>
+    </div>
+
+    {% for question in questions1 %}
+      {% if (question.correct == 1) %}
+        <div class="questionResult" id="passedTest">
+      {% endif %}
+
+      {% if (question.correct != 1) %}
+        <div class="questionResult" id="failedTest">
+      {% endif %}
+
+          <div class="questionInformation" id="topQuestionInformation">
+              <span id="resultsQuestionNumber" class="questionHeader">{{question.question_number}}</span>
+              {% if (question.question_number < 9) %}
+                <p>{{question.question}}</p>
+              {% endif %}
+
+              {% if (question.question_number == 9) %}
+                <span class="questionDetails" id="question9"></span>
+                <div class="questionImg" id="question9img"></div>
+              {% endif %}
+
+              {% if (question.question_number == 10) %}
+                <span class="questionDetails" id="question10"></span>
+                <div class="questionImg" id="question10img"></div>
+              {% endif %}
+
+              <script>
+                if({{question.question_number}} == 9) {
+                  var question9 = "{{question.question}}";
+                  var split9 = question9.split(":").pop();
+                  var changed9 = split9.replace(/&lt;/g, "<").replace(/&#34;/g, "'").replace(/&gt;/g, ">")
+                  var text9 = question9.split(":");
+                  document.getElementById("question9").innerHTML = text9[0] + ": ";
+                  document.getElementById("question9img").innerHTML = changed9;
+                }
+                if({{question.question_number}} == 10) {
+                  var question10 = "{{question.question}}";
+                  var split10 = question10.split(":").pop();
+                  var changed10 = split10.replace(/&lt;/g, "<").replace(/&#34;/g, "'").replace(/&gt;/g, ">")
+                  var text10 = question9.split(":");
+                  document.getElementById("question10").innerHTML = text10[0] + ": ";
+                  document.getElementById("question10img").innerHTML = changed10;
+                }
+              </script>
+          </div>
+          <div class="questionInformation" id="bottomQuestionInformation">
+            {% if question.question_number != 9 %}
+              <p> Correct answer: {{question.correct_answer}} </p>
+              <p> Your answer: {{question.user_answer}} </p>
+            {% endif %}
+
+            {% if question.question_number == 9 %}
+              <p style='text-transform:uppercase'> Correct answer: {{question.correct_answer}} </p>
+              <p style='text-transform:uppercase'> Your answer: {{question.user_answer}} </p>
+            {% endif %}
+
+          </div>
+        </div>
+      {% endfor %}
   </div>
 
-  {% for question in questions1 %}
-    {% if (question.correct == 1) %}
-      <div class="testResult" id="passedTest">
-        <p> Question Number: {{question.question_number}} </p>
-      </div>
-    {% endif %}
 
-    {% if (question.correct != 1) %}
-      <div class="testResult" id="failedTest">
-        Question Number: {{question.question_number}}
-      </div>
-    {% endif %}
-  {% endfor %}
 {% endblock %}
 
 {% block scripts %}

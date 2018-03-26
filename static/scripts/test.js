@@ -11,7 +11,6 @@ $(document).ready(function(){
   //5 = logic gate name
 
   //Initialising a 2d array
-  // var questions = Array.from(Array(9), () => new Array(4));
   window.questions = [];
   questions[0] = QType3(1);
   questions[1] = QType3(2);
@@ -141,11 +140,6 @@ function submit() {
   var questionObj9 = toObject(questions[9]);
   var objectArray = [questionObj0, questionObj1, questionObj2, questionObj3, questionObj4, questionObj5, questionObj6, questionObj7, questionObj8, questionObj9];
 
-  console.log("OBJECT0: ", questionObj0);
-  var test = JSON.stringify(questionObj0);
-  console.log(test);
-  var obj = {questionNumber: 1, question: "Convert 10110001 to decimal", answer: 177, userAnswer: "blank"};
-  console.log(JSON.stringify(obj));
 
   $.ajax({
     type: 'POST',
@@ -302,7 +296,7 @@ function QType4(questionNumber) {
   outputString = "<div class=questionContainer>   <span class='questionHeader' id='questionNumber'>" + questionNumber + " </span> <span class='questionHeader'> Convert the following decimal into binary </span>" +
                  "<br><span class='binarySpan'>" + number + "</span><br> <br> <label class='testAnswerLabel'> Answer (in 8-bit binary) </label> <br> <input type='text' name'answer' id='answer" +
                  questionNumber + "'" + "</div>";
-  question = "Convert " + paddedBinary + " to binary (8-bit)";
+  question = "Convert " + number + " to binary (8-bit)";
   var a = questionNumber;
 
   return [a, question, answer, outputString];

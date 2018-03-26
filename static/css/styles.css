@@ -793,7 +793,7 @@ box-shadow: none;
 	width: 400px;
 	height: 100px;
 	vertical-align: top;
-	margin-top: 50px;
+	margin-top: 80px;
 	text-align: left;
 	padding-left: 20px;
 
@@ -891,6 +891,54 @@ box-shadow: none;
 	font-weight: bold;
 }
 
+.questionResult {
+	width: 800px;
+	display: inline-block;
+	height: auto;
+	line-height: 40px;
+	vertical-align: middle;
+	border-radius: 4px;
+	margin-bottom: 7px;
+
+}
+
+.questionInformation {
+	width: 100%;
+	display: inline-block;
+	margin-bottom: 15px; 
+}
+
+.questionInformation p, .questionDetails {
+	width: 70%;
+	display: inline-block;
+	font-weight: bold;
+	vertical-align: top;
+}
+
+.questionDetails {
+	width: auto;
+	margin-right: 20px;
+	margin-top: 18px;
+}
+
+.questionResult img {
+	margin: 5px 0;
+	height: 70px;
+}
+
+.topQuestionInformation {
+	display: inline-block;
+}
+
+.questionImg {
+	width: 100px;
+	display: inline-block;
+}
+
+.questionDetails {
+	display: inline-block;
+}
+
 #passedTest {
 	background-color: #afff9e;
 }
@@ -907,11 +955,45 @@ box-shadow: none;
 	background-color: #f97a7a;
 }
 
-.viewTestBtn {
+#topQuestionInformation p {
+	padding-top: 15px;
+}
+
+#resultsQuestionNumber {
+	margin: 0;
+	padding: 10px;
 	height: 40px;
 	width: 40px;
-
+	border-right: solid black 2px;
+	border-bottom: solid black 2px;
+	text-align: center;
+	border-bottom-right-radius: 20%;
+	color: black;
+	vertical-align: middle;
+	line-height: 20px;
 }
+
+#bottomQuestionInformation {
+	width: 80%;
+	margin-bottom: 20px;
+}
+
+#bottomQuestionInformation p {
+	display: inline-block;
+	width: 40%;
+}
+
+.generalTestInfo {
+	background-color: #a2a2a2;
+	height: auto;
+	width: 800px;
+	margin: 10px auto;
+	border-radius: 4px;
+	padding: 10px 0;
+	font-weight: bold;
+	color: white;
+}
+
 /****************************************************/
 /******************TEST PAGE*************************/
 /****************************************************/

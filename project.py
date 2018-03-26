@@ -206,10 +206,29 @@ def account():
         user_name = test.user_name
         a = TestObj(id, timestamp, percentage, user_id, user_name)
         testInfo.append(a)
-    # json_string = json.dumps([ob.__dict__ for ob in testInfo], default = myconverter)
-    # print(json_string)
 
     return render_template('account.html', pass_form=form, avatar_form=form2, tests1=testInfo)
+
+@app.route('/account/view_test/<testID>', methods=['GET', 'POST'])
+@login_required
+def loadTest(testID):
+    test = Test.query.filter_by(id=testID).first()
+    if test is None:
+        abort(404)
+
+    questions = db.session.query(Question).filter_by(test_id = testID).all()
+    questionInfo = []
+    for question in questions:
+        id = question.id
+        question_number = question.question_number
+        questionDetails = question.question
+        correct_answer = question.correct_answer
+        user_answer = question.user_answer
+        correct = question.correct
+        a = QuestionObj(id, question_number, questionDetails, correct_answer, user_answer, correct)
+        questionInfo.append(a)
+
+    return render_template('accountTest.html', test=test, questions1=questionInfo)
 
 @app.route('/learn/selectionSort')
 def selectionSort():
@@ -223,6 +242,10 @@ def insertionSort():
 def load_user(user_id):
     return User.query.get(int(user_id))
 
+#############################################
+##################CLASSES####################
+#############################################
+
 class TestObj:
     def __init__(self, id, timestamp, percentage, user_id, user_name):
         self.id = id
@@ -234,36 +257,23 @@ class TestObj:
     def __str__(self):
         return  str(self.__class__) + '\n'+ '\n'.join(('{} = {}'.format(item, self.__dict__[item]) for item in self.__dict__))
 
-# def make_testObj(id, timestamp, percentage, user_id, user_name):
-#     test = TestObj()
-#     test.id = id
-#     test.timestamp = timestamp
-#     test.percentage = percentage
-#     test.user_id = user_id
-#     test.user_name = user_name
-#     return test
+class QuestionObj:
+    def __init__(self, id, question_number, question, correct_answer, user_answer, correct):
+        self.id = id
+        self.question_number = question_number
+        self.question = question
+        self.correct_answer = correct_answer
+        self.user_answer = user_answer
+        self.correct = correct
 
-class QuestionObj(object):
-    id = 0
-    question_number = 0
-    question = ""
-    correct_answer = ""
-    user_answer = ""
-    correct = 0
-
-def make_questionObj(id, question_number, question, correct_answer, user_answer, correct):
-    question = QuestionObj()
-    question.id = id
-    question.question_number = question_number
-    question.question = question
-    question.correct_answer = correct_answer
-    question.user_answer = user_answer
-    question.correct = correct
-    return question
+    def __str__(self):
+        return  str(self.__class__) + '\n'+ '\n'.join(('{} = {}'.format(item, self.__dict__[item]) for item in self.__dict__))
 
 def myconverter(o):
     if isinstance(o, datetime.datetime):
         return o.__str__()
+
+
 ###########################################
 ##################FORMS####################
 ###########################################

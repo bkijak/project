@@ -36,21 +36,26 @@
       </div>
     </div>
     <div>
+      <h1 class="historyTitle">Completed tests</h1>
     <div class ="compTests">
 
       {% for test in tests1 %}
         {% if (test.percentage >= 40) %}
-        <div class="testResult" id="passedTest">
-          <p> Submitted: {{ test.timestamp.strftime("%Y-%m-%d %H:%M:%S") }} </p>
-          <p> Result: {{ test.percentage }}% </p>
-        </div>
+        <a href="/account/view_test/{{ test.id }}">
+          <div class="testResult" id="passedTest">
+            <p> Submitted: {{ test.timestamp.strftime("%Y-%m-%d %H:%M:%S") }} </p>
+            <p> Result: {{ test.percentage }}% </p>
+          </div>
+        </a>
         {% endif %}
 
         {% if (test.percentage < 40) %}
-        <div class="testResult" id="failedTest">
-          <p> Submitted: {{ test.timestamp.strftime("%Y-%m-%d %H:%M:%S") }} </p>
-          <p> Result: {{ test.percentage }}% </p>
-        </div>
+        <a href="/account/view_test/{{ test.id }}">
+          <div class="testResult" id="failedTest">
+            <p> Submitted: {{ test.timestamp.strftime("%Y-%m-%d %H:%M:%S") }} </p>
+            <p> Result: {{ test.percentage }}% </p>
+          </div>
+        </a>
         {% endif %}
       {% endfor %}
     </div>

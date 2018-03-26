@@ -516,6 +516,7 @@ box-shadow: none;
 	height: auto;
 	flex-flow: column;
 	display: block;
+	display: table;
 }
 
 .categoryContainer {
@@ -746,6 +747,15 @@ box-shadow: none;
 /******************ACCOUNT PAGE**********************/
 /****************************************************/
 
+
+.historyTitle {
+	text-align: middle;
+	font-size: 20px;
+	margin-top: 35px;
+	margin-bottom: 20px;
+	font-weight: bold;
+	color: #3187DD;
+}
 .topAccInfo {
 		width: 1000px;
 		text-align: center;
@@ -859,7 +869,11 @@ box-shadow: none;
 .compTests {
 	margin: 0 auto;
 	width: 800px;
-	margin-top: 40px;
+	margin-bottom: 40px;
+}
+
+.compTests a {
+	text-decoration: none;
 }
 
 .testResult {
@@ -873,7 +887,7 @@ box-shadow: none;
 }
 
 .testResult p {
-	width: 50%;
+	width: 380px;
 	font-weight: bold;
 }
 
@@ -893,6 +907,11 @@ box-shadow: none;
 	background-color: #f97a7a;
 }
 
+.viewTestBtn {
+	height: 40px;
+	width: 40px;
+
+}
 /****************************************************/
 /******************TEST PAGE*************************/
 /****************************************************/

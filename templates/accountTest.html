@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}UEA{% endblock %}
+
+{% block currentButton %}
+
+  {% if current_user.is_authenticated %}
+  <a class="myBW w3-bar-item w3-button w3-red w3-right" href="{{ url_for('account') }}">ACCOUNT</a>
+  {% else %}
+  <a class="myBW w3-bar-item w3-button w3-red w3-right" href="{{ url_for('register') }}">SIGN UP</a>
+  {% endif %}
+
+  {% if current_user.is_authenticated %}
+    <a class="myBB w3-bar-item w3-button w3-red w3-right" href="{{ url_for('logout') }}">LOGOUT</a>
+  {% else %}
+    <a class="myBB w3-bar-item w3-button w3-red w3-right" href="{{ url_for('login') }}">LOGIN</a>
+  {% endif %}
+
+  <a class="myB w3-bar-item w3-button w3-black w3-right" href="{{ url_for('test') }}">TEST</a>
+  <a class="myB w3-bar-item w3-button w3-black w3-right" href="{{ url_for('learn') }}">LEARN</a>
+  <a class="myB w3-bar-item w3-button w3-teal w3-right" href="{{ url_for('index') }}">HOME</a>
+{% endblock %}
+
+{% block page_content %}
+  <div class="midContainer">
+    <p> Test ID: {{ test.id }} </p>
+    <p> Test submitted: {{ test.timestamp }} </p>
+    <p> Test percentage: {{ test.percentage }} </p>
+    <p> Test user ID: {{ test.user_id }} </p>
+    <p> Test user: {{ test.user_name }} </p>
+  </div>
+
+  {% for question in questions1 %}
+    {% if (question.correct == 1) %}
+      <div class="testResult" id="passedTest">
+        <p> Question Number: {{question.question_number}} </p>
+      </div>
+    {% endif %}
+
+    {% if (question.correct != 1) %}
+      <div class="testResult" id="failedTest">
+        Question Number: {{question.question_number}}
+      </div>
+    {% endif %}
+  {% endfor %}
+{% endblock %}
+
+{% block scripts %}
+  {{ super() }}
+  <!-- <script src="{{url_for('static', filename='scripts/script.js')}}"></script> -->
+
+
+{% endblock %}

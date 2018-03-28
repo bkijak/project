@@ -4,7 +4,7 @@
 {% block title %}UEA{% endblock %}
 
 {% block currentButton %}
-
+  <!-- navigation bar changes depending on whther the user is logged in or not -->
   {% if current_user.is_authenticated %}
   <a class="myBW w3-bar-item w3-button w3-red w3-right" href="{{ url_for('account') }}">ACCOUNT</a>
   {% else %}
@@ -36,30 +36,57 @@
       </div>
     </div>
     <div>
+
+    <div class ="compTests">
+      <!-- if current user is not an admin -->
+      {% if current_user.is_admin == 0 %}
       <div class="generalTestInfo">
         <h1>Completed tests</h1>
       </div>
-    <div class ="compTests">
+        <!-- display a list of tests previously submitted by the current user -->
+        {% for test in tests1 %}
+          {% if (test.percentage >= 40) %}
+          <a href="/account/view_test/{{ test.id }}">
+            <div class="testResult" id="passedTest">
+              <p> Submitted: {{ test.timestamp.strftime("%Y-%m-%d %H:%M:%S") }} </p>
+              <p> Result: {{ test.percentage }}% </p>
+            </div>
+          </a>
+          {% endif %}
 
-      {% for test in tests1 %}
-        {% if (test.percentage >= 40) %}
-        <a href="/account/view_test/{{ test.id }}">
-          <div class="testResult" id="passedTest">
-            <p> Submitted: {{ test.timestamp.strftime("%Y-%m-%d %H:%M:%S") }} </p>
-            <p> Result: {{ test.percentage }}% </p>
-          </div>
-        </a>
-        {% endif %}
+          {% if (test.percentage < 40) %}
+          <a href="/account/view_test/{{ test.id }}">
+            <div class="testResult" id="failedTest">
+              <p> Submitted: {{ test.timestamp.strftime("%Y-%m-%d %H:%M:%S") }} </p>
+              <p> Result: {{ test.percentage }}% </p>
+            </div>
+          </a>
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+      <!-- if current user is an admin -->
+      {% if current_user.is_admin == 1 %}
+      <div class="generalTestInfo">
+        <h1>List of students</h1>
+      </div>
+      <div class="generalTestInfo">
+        <h1>Name</h1>
+        <h1>Email address</h1>
+        <h1>User since</h1>
+      </div>
 
-        {% if (test.percentage < 40) %}
-        <a href="/account/view_test/{{ test.id }}">
-          <div class="testResult" id="failedTest">
-            <p> Submitted: {{ test.timestamp.strftime("%Y-%m-%d %H:%M:%S") }} </p>
-            <p> Result: {{ test.percentage }}% </p>
-          </div>
-        </a>
-        {% endif %}
+      <!-- display a list of students (registered users that are not admin) -->
+      {% for user in users1 %}
+      <a href="/account/view_user/{{ user.id }}">
+        <div class="testResult" id="userListItem">
+          <p> {{ user.username }} </p>
+          <p> {{ user.email }} </p>
+          <p> {{ user.date_created }} </p>
+        </div>
+      </a>
       {% endfor %}
+
+      {% endif %}
     </div>
 
     <div id = "passPopup" class = "passPopup">

@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, flash, redirect, url_for, request
+from flask import Flask, render_template, flash, redirect, url_for, request, abort
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import FlaskForm
 from wtforms import BooleanField, validators, StringField, SubmitField, PasswordField
@@ -207,7 +207,18 @@ def account():
         a = TestObj(id, timestamp, percentage, user_id, user_name)
         testInfo.append(a)
 
-    return render_template('account.html', pass_form=form, avatar_form=form2, tests1=testInfo)
+    users = db.session.query(User).filter_by(is_admin=0).all()
+    userList = []
+    for user in users:
+        id = user.id
+        email = user.email
+        username = user.username
+        date_created = user.date
+        b = UserObj(id, email, username, date_created)
+        userList.append(b)
+
+    return render_template('account.html', pass_form=form, avatar_form=form2, tests1=testInfo, users1 = userList)
+
 
 @app.route('/account/view_test/<testID>', methods=['GET', 'POST'])
 @login_required
@@ -229,6 +240,28 @@ def loadTest(testID):
         questionInfo.append(a)
 
     return render_template('accountTest.html', test=test, questions1=questionInfo)
+
+@app.route('/account/view_user/<userID>', methods=['GET', 'POST'])
+@login_required
+def loadUser(userID):
+    user = User.query.filter_by(id=userID).first()
+    if user is None:
+        abort(404)
+
+    tests = db.session.query(Test).filter_by(user_id=userID)
+    testList = []
+    for test in tests:
+        id = test.id
+        timestamp = test.timestamp
+        percentage = test.percentage
+        user_id = test.user_id
+        user_name = test.user_name
+        a = TestObj(id, timestamp, percentage, user_id, user_name)
+        testList.append(a)
+
+    # print(user.user)
+
+    return render_template('userTests.html', userViewed=user, tests2=testList)
 
 @app.route('/learn/selectionSort')
 def selectionSort():
@@ -265,6 +298,16 @@ class QuestionObj:
         self.correct_answer = correct_answer
         self.user_answer = user_answer
         self.correct = correct
+
+    def __str__(self):
+        return  str(self.__class__) + '\n'+ '\n'.join(('{} = {}'.format(item, self.__dict__[item]) for item in self.__dict__))
+
+class UserObj:
+    def __init__(self, id, email, username, date_created):
+        self.id = id
+        self.email = email
+        self.username = username
+        self.date_created = date_created
 
     def __str__(self):
         return  str(self.__class__) + '\n'+ '\n'.join(('{} = {}'.format(item, self.__dict__[item]) for item in self.__dict__))

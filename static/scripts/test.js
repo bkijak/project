@@ -412,17 +412,16 @@ function QType6(questionNumber) {
                    " and input 2 = " + input2 + " </span>" +
                    "<br><div class='gateDiv'>" + gateLocation + " <br><label class='testAnswerLabel'> Answer </label> <br> <input type='text' name'answer' id='answer" +
                    questionNumber + "'" + "</div>";
-    question = "Give the output of the following gate, given input 1 = " + input1 + " and input 2 = " + input2 + gateLocation;
+    question = "Give the output of the following gate, given input 1 = " + input1 + " and input 2 = " + input2 + ": " + gateLocation;
   }
   else if (inputs == 1) {
     outputString = "<div class=questionContainer>   <span class='questionHeader' id='questionNumber'>" + questionNumber +
                    " </span> <span class='questionHeader'> Give the output of the following gate, given input 1 = " + input1 + " </span>" +
                    "<br><div class='gateDiv'>" + gateLocation + " <br><label class='testAnswerLabel'> Answer </label> <br> <input type='text' name'answer' id='answer" +
                    questionNumber + "'" + "</div>";
-    question = "Give the output of the following gate, given input 1 = " + input1 + gateLocation;
+    question = "Give the output of the following gate, given input 1 = " + input1 + ": " + gateLocation;
   }
 
-  question = "Name the following logic gate: " + gateLocation;
   var a = questionNumber;
   return [a, question, answer, outputString];
 }

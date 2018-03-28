@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}UEA{% endblock %}
+
+{% block currentButton %}
+
+  {% if current_user.is_authenticated %}
+  <a class="myBW w3-bar-item w3-button w3-red w3-right" href="{{ url_for('account') }}">ACCOUNT</a>
+  {% else %}
+  <a class="myBW w3-bar-item w3-button w3-red w3-right" href="{{ url_for('register') }}">SIGN UP</a>
+  {% endif %}
+
+  {% if current_user.is_authenticated %}
+    <a class="myBB w3-bar-item w3-button w3-red w3-right" href="{{ url_for('logout') }}">LOGOUT</a>
+  {% else %}
+    <a class="myBB w3-bar-item w3-button w3-red w3-right" href="{{ url_for('login') }}">LOGIN</a>
+  {% endif %}
+
+  <a class="myB w3-bar-item w3-button w3-black w3-right" href="{{ url_for('test') }}">TEST</a>
+  <a class="myB w3-bar-item w3-button w3-black w3-right" href="{{ url_for('learn') }}">LEARN</a>
+  <a class="myB w3-bar-item w3-button w3-teal w3-right" href="{{ url_for('index') }}">HOME</a>
+{% endblock %}
+
+{% block page_content %}
+  <div class="midContainer">
+    <div class="generalTestInfo">
+      <p> Student name: {{ userViewed.username }} </p>
+      <p> Student email: {{ userViewed.email }} </p>
+      <p> Account created: {{ userViewed.date }} </p>
+    </div>
+
+    {% for test in tests2 %}
+      {% if (test.percentage >= 40) %}
+      <a href="/account/view_test/{{ test.id }}">
+        <div class="testResult" id="passedTest">
+          <p> Submitted: {{ test.timestamp.strftime("%Y-%m-%d %H:%M:%S") }} </p>
+          <p> Result: {{ test.percentage }}% </p>
+        </div>
+      </a>
+      {% endif %}
+
+      {% if (test.percentage < 40) %}
+      <a href="/account/view_test/{{ test.id }}">
+        <div class="testResult" id="failedTest">
+          <p> Submitted: {{ test.timestamp.strftime("%Y-%m-%d %H:%M:%S") }} </p>
+          <p> Result: {{ test.percentage }}% </p>
+        </div>
+      </a>
+      {% endif %}
+    {% endfor %}
+
+    <div class="midContainer">
+      <a class="myBB w3-bar-item w3-button w3-red w3-left" id="backButton" href="{{url_for('account')}}"> Back to account </a>
+    </div>
+  </div>
+
+
+{% endblock %}
+
+{% block scripts %}
+  {{ super() }}
+{% endblock %}

@@ -815,7 +815,7 @@ box-shadow: none;
 .accButton {
 	width: 200px;
 	height: 40px;
-	margin-bottom: 3px;
+	margin-bottom: 6px;
 	background-color: #3187DD !important;
 	color: #bfdfff !important;
 	font-weight: bold;
@@ -889,6 +889,7 @@ box-shadow: none;
 .testResult p {
 	width: 380px;
 	font-weight: bold;
+	text-decoration: none;
 }
 
 .questionResult {
@@ -905,7 +906,7 @@ box-shadow: none;
 .questionInformation {
 	width: 100%;
 	display: inline-block;
-	margin-bottom: 15px; 
+	margin-bottom: 15px;
 }
 
 .questionInformation p, .questionDetails {
@@ -983,6 +984,14 @@ box-shadow: none;
 	width: 40%;
 }
 
+#userListItem {
+	background-color: #9eceff;
+}
+
+#userListItem:hover {
+	background-color: #7acaf9;
+}
+
 .generalTestInfo {
 	background-color: #a2a2a2;
 	height: auto;
@@ -992,6 +1001,23 @@ box-shadow: none;
 	padding: 10px 0;
 	font-weight: bold;
 	color: white;
+}
+
+.generalTestInfo p {
+	margin-bottom: 4px;
+}
+
+.generalTestInfo h1 {
+	display: inline-block;
+	width: 32%;
+}
+
+#backButton {
+	line-height: 30px;
+	vertical-align: middle;
+	height: 50px;
+	margin-top: 15px;
+	margin-bottom: 30px;
 }
 
 /****************************************************/

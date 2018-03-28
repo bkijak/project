@@ -26,7 +26,7 @@
   <div class="midContainer">
     <div class="generalTestInfo">
       <p> Submitted: {{ test.timestamp.strftime("%Y-%m-%d %H:%M:%S") }} </p>
-      <p> Test percentage: {{ test.percentage }} </p>
+      <p> Result: {{ test.percentage }}% </p>
     </div>
 
     {% for question in questions1 %}
@@ -67,7 +67,7 @@
                   var question10 = "{{question.question}}";
                   var split10 = question10.split(":").pop();
                   var changed10 = split10.replace(/&lt;/g, "<").replace(/&#34;/g, "'").replace(/&gt;/g, ">")
-                  var text10 = question9.split(":");
+                  var text10 = question10.split(":");
                   document.getElementById("question10").innerHTML = text10[0] + ": ";
                   document.getElementById("question10img").innerHTML = changed10;
                 }
@@ -87,6 +87,15 @@
           </div>
         </div>
       {% endfor %}
+      <div class="midContainer">
+        {% if current_user.is_admin == 0 %}
+        <a class="myBB w3-bar-item w3-button w3-red w3-left" id="backButton" href="{{url_for('account')}}"> Back to account </a>
+        {% endif %}
+
+        {% if current_user.is_admin == 1 %}
+        <a class="myBB w3-bar-item w3-button w3-red w3-left" id="backButton" href="javascript:history.back()"> Previous Page </a>
+        {% endif %}
+      </div>
   </div>
 
 

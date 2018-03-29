@@ -1,0 +1,18 @@
+<!doctype html>
+<html>
+  <head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='imgs/uea.png') }}" type="image/x-icon">
+    <link rel="icon" href="{{ url_for('static', filename='imgs/uea.png') }}" type="image/x-icon">
+
+    <title> Access restricted </title>
+
+  </head>
+  <body>
+
+    <p class="error"> Error 403 </p>
+    <h1 class="errorContent"> Access to this page has been denied. </h1>
+    <h1 class="errorContent"> You can go <a href="javascript:history.back()"> back to the previous page </a> or <a href="{{ url_for('index') }}"> go back to the home page. </a> </h1>
+
+  </body>
+</html>

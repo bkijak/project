@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% import "bootstrap/wtf.html" as wtf %}
 
-{% block title %}UEA{% endblock %}
+{% block title %} UEA - Account {% endblock %}
 
 {% block currentButton %}
   <!-- navigation bar changes depending on whther the user is logged in or not -->
@@ -43,13 +43,18 @@
       <div class="generalTestInfo">
         <h1>Completed tests</h1>
       </div>
+
+      <div class="generalTestInfo" id="generalTestInfoStudent">
+        <h1>Submitted at</h1>
+        <h1>Result</h1>
+      </div>
         <!-- display a list of tests previously submitted by the current user -->
         {% for test in tests1 %}
           {% if (test.percentage >= 40) %}
           <a href="/account/view_test/{{ test.id }}">
             <div class="testResult" id="passedTest">
-              <p> Submitted: {{ test.timestamp.strftime("%Y-%m-%d %H:%M:%S") }} </p>
-              <p> Result: {{ test.percentage }}% </p>
+              <p> {{ test.timestamp.strftime("%Y-%m-%d %H:%M:%S") }} </p>
+              <p> {{ test.percentage }}% </p>
             </div>
           </a>
           {% endif %}
@@ -57,8 +62,8 @@
           {% if (test.percentage < 40) %}
           <a href="/account/view_test/{{ test.id }}">
             <div class="testResult" id="failedTest">
-              <p> Submitted: {{ test.timestamp.strftime("%Y-%m-%d %H:%M:%S") }} </p>
-              <p> Result: {{ test.percentage }}% </p>
+              <p> {{ test.timestamp.strftime("%Y-%m-%d %H:%M:%S") }} </p>
+              <p> {{ test.percentage }}% </p>
             </div>
           </a>
           {% endif %}
@@ -125,7 +130,9 @@
       </div>
     </div>
   </div>
+  <div class="filler"></div>
 </div>
+
 {% endblock %}
 
 {% block scripts %}

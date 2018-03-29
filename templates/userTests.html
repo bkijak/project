@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% import "bootstrap/wtf.html" as wtf %}
 
-{% block title %}UEA{% endblock %}
+{% block title %}UEA - Account{% endblock %}
 
 {% block currentButton %}
 
@@ -24,18 +24,23 @@
 
 {% block page_content %}
   <div class="midContainer">
-    <div class="generalTestInfo">
+    <div class="generalTestInfo" id="generalTestInfoAdmin">
       <p> Student name: {{ userViewed.username }} </p>
       <p> Student email: {{ userViewed.email }} </p>
       <p> Account created: {{ userViewed.date }} </p>
+    </div>
+
+    <div class="generalTestInfo" id="generalTestInfoStudent">
+      <h1>Submitted at</h1>
+      <h1>Result</h1>
     </div>
 
     {% for test in tests2 %}
       {% if (test.percentage >= 40) %}
       <a href="/account/view_test/{{ test.id }}">
         <div class="testResult" id="passedTest">
-          <p> Submitted: {{ test.timestamp.strftime("%Y-%m-%d %H:%M:%S") }} </p>
-          <p> Result: {{ test.percentage }}% </p>
+          <p> {{ test.timestamp.strftime("%Y-%m-%d %H:%M:%S") }} </p>
+          <p> {{ test.percentage }}% </p>
         </div>
       </a>
       {% endif %}
@@ -43,8 +48,8 @@
       {% if (test.percentage < 40) %}
       <a href="/account/view_test/{{ test.id }}">
         <div class="testResult" id="failedTest">
-          <p> Submitted: {{ test.timestamp.strftime("%Y-%m-%d %H:%M:%S") }} </p>
-          <p> Result: {{ test.percentage }}% </p>
+          <p> {{ test.timestamp.strftime("%Y-%m-%d %H:%M:%S") }} </p>
+          <p> {{ test.percentage }}% </p>
         </div>
       </a>
       {% endif %}

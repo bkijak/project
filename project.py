@@ -207,6 +207,7 @@ def account():
         a = TestObj(id, timestamp, percentage, user_id, user_name)
         testInfo.append(a)
 
+
     users = db.session.query(User).filter_by(is_admin=0).all()
     userList = []
     for user in users:
@@ -217,6 +218,8 @@ def account():
         b = UserObj(id, email, username, date_created)
         userList.append(b)
 
+    testInfo.reverse()
+    userList.reverse()
     return render_template('account.html', pass_form=form, avatar_form=form2, tests1=testInfo, users1 = userList)
 
 
@@ -226,6 +229,9 @@ def loadTest(testID):
     test = Test.query.filter_by(id=testID).first()
     if test is None:
         abort(404)
+    if current_user.is_admin == 0:
+        if current_user.id != test.user_id:
+            abort(403)
 
     questions = db.session.query(Question).filter_by(test_id = testID).all()
     questionInfo = []
@@ -241,12 +247,15 @@ def loadTest(testID):
 
     return render_template('accountTest.html', test=test, questions1=questionInfo)
 
+
 @app.route('/account/view_user/<userID>', methods=['GET', 'POST'])
 @login_required
 def loadUser(userID):
     user = User.query.filter_by(id=userID).first()
     if user is None:
         abort(404)
+    if current_user.is_admin == 0:
+        abort(403)
 
     tests = db.session.query(Test).filter_by(user_id=userID)
     testList = []
@@ -259,8 +268,7 @@ def loadUser(userID):
         a = TestObj(id, timestamp, percentage, user_id, user_name)
         testList.append(a)
 
-    # print(user.user)
-
+    testList.reverse()
     return render_template('userTests.html', userViewed=user, tests2=testList)
 
 @app.route('/learn/selectionSort')
@@ -274,6 +282,14 @@ def insertionSort():
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
+
+@app.errorhandler(403)
+def page_not_found(e):
+    return render_template('403.html'), 403
 
 #############################################
 ##################CLASSES####################

@@ -25,6 +25,11 @@
 {% block page_content %}
 <div class="algoContainer">
   <h1 id = "algoTitle"> Adding Binary </h1>
+  <div class = "algoControls">
+    <label for="elements"> Speed in seconds: </label>
+    <input id = "elements" type="number" name="speed">
+    <input id = "runAlgoButton" type="button" value="Start Animation" onclick='runDemoUser()'/>
+  </div>
   <div class="binaryDemo">
     <table class="binaryTable">
       <tr>

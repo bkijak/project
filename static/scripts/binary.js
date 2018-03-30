@@ -15,7 +15,6 @@ $(document).ready(function(){
   var paddedBinary2 = addPadding(binary2);
   var paddedAnswer = addPadding(binaryAnswer);
 
-
   var bin1 = []
   var bin2 = []
   for (var i = 0; i < paddedBinary.length; i++) {
@@ -50,7 +49,7 @@ function runDemo(binary1, binary2, carry, answer, i, delay) {
     if (i < 0) {
       finished = 1;
       displayBinary(binary1, binary2, carry, answer, i, finished);
-      document.getElementById('algoInfo').innerHTML = "Demonstration finished";
+      document.getElementById('algoInfo').innerHTML += "Demonstration finished";
       return;
     }
 
@@ -59,63 +58,55 @@ function runDemo(binary1, binary2, carry, answer, i, delay) {
         if(carry[i] == 0 || carry[i] == 'empty') {
           carry[i-1] = 'empty';
           answer[i] = 0;
-          text = "<p><span class='bin'> 0 </span> + <span class='bin'> 0 </span> " +
-           "<p></p> Carry = <span class='carry'> none </span> <p></p> Answer = <span class='answer'> 0 </span> <p></p>" +
-           "Next carry = <span class='carry'> none </span></p>"
+          text = "<p><span class='bin'> 0 </span> + <span class='bin'> 0 </span> + <span class='carry'> 0 </span> = <span class='answer'> 0 </span></p>" +
+           "<p>Carry is <span class='carry'> 0 </span></p>"
         }
         if(carry[i] == 1) {
           answer[i] = 1;
-          text = "<p><span class='bin'> 0 </span> + <span class='bin'> 0 </span> " +
-           "<p></p> Carry = <span class='carry'> 1 </span> <p></p> Answer = <span class='answer'> 1 </span> <p></p>" +
-           "Next carry = <span class='carry'> none </span></p>"
+          text = "<p><span class='bin'> 0 </span> + <span class='bin'> 0 </span> + <span class='carry'> 1 </span> = <span class='answer'> 1 </span></p>" +
+           "<p>Carry is <span class='carry'> 0 </span></p>"
         }
       }
       if(binary1[i] == 1 && binary2[i] == 0){
         if(carry[i] == 0 || carry[i] == 'empty') {
           carry[i-1] = 'empty';
           answer[i] = 1;
-          text = "<p><span class='bin'> 1 </span> + <span class='bin'> 0 </span> " +
-           "<p></p> Carry = <span class='carry'> none </span> <p></p> Answer = <span class='answer'> 1 </span> <p></p>" +
-           "Next carry = <span class='carry'> none </span></p>"
+          text = "<p><span class='bin'> 1 </span> + <span class='bin'> 0 </span> + <span class='carry'> 0 </span> = <span class='answer'> 1 </span></p>" +
+           "<p>Carry is <span class='carry'> 0 </span></p>"
         }
         if(carry[i] == 1) {
           answer[i] = 0;
           carry[i-1] = 1;
-          text = "<p><span class='bin'> 1 </span> + <span class='bin'> 0 </span> " +
-           "<p></p> Carry = <span class='carry'> 1 </span> <p></p> Answer = <span class='answer'> 0 </span> <p></p>" +
-           "Next carry = <span class='carry'> 1 </span></p>"
+          text = "<p><span class='bin'> 1 </span> + <span class='bin'> 0 </span> + <span class='carry'> 1 </span> = <span class='answer'> 0 </span></p>" +
+           "<p>Carry is <span class='carry'> 0 </span></p>"
         }
       }
       if(binary1[i] == 0 && binary2[i] == 1) {
         if(carry[i] == 0 || carry[i] == 'empty') {
           carry[i-1] = 'empty';
           answer[i] = 1;
-          text = "<p><span class='bin'> 0 </span> + <span class='bin'> 1 </span> " +
-           "<p></p> Carry = <span class='carry'> none </span> <p></p> Answer = <span class='answer'> 1 </span> <p></p>" +
-           "Next carry = <span class='carry'> 0 </span></p>"
+          text = "<p><span class='bin'> 0 </span> + <span class='bin'> 1 </span> + <span class='carry'> 0 </span> = <span class='answer'> 1 </span></p>" +
+           "<p>Carry is <span class='carry'> 0 </span></p>"
         }
         if(carry[i] == 1) {
           answer[i] = 0;
           carry[i-1] = 1;
-          text = "<p><span class='bin'> 0 </span> + <span class='bin'> 1 </span> " +
-           "<p></p> Carry = <span class='carry'> none </span> <p></p> Answer = <span class='answer'> 0 </span> <p></p>" +
-           "Next carry = <span class='carry'> 1 </span></p>"
+          text = "<p><span class='bin'> 0 </span> + <span class='bin'> 1 </span> + <span class='carry'> 1 </span> = <span class='answer'> 0 </span></p>" +
+           "<p>Carry is <span class='carry'> 1 </span></p>"
         }
       }
       if(binary1[i] == 1 && binary2[i] == 1){
         if(carry[i] == 0 || carry[i] == 'empty') {
           carry[i-1] = 1;
           answer[i] = 0;
-          text = "<p><span class='bin'> 1 </span> + <span class='bin'> 1 </span> " +
-           "<p></p> Carry = <span class='carry'> none </span> <p></p> Answer = <span class='answer'> 0 </span> <p></p>" +
-           "Next carry = <span class='carry'> 1 </span></p>"
+          text = "<p><span class='bin'> 1 </span> + <span class='bin'> 1 </span> + <span class='carry'> 0 </span> = <span class='answer'> 0 </span></p>" +
+           "<p>Carry is <span class='carry'> 1 </span></p>"
         }
         if(carry[i] == 1) {
           answer[i] = 1;
           carry[i-1] = 1;
-          text = "<p><span class='bin'> 1 </span> + <span class='bin'> 1 </span> " +
-           "<p></p> Carry = <span class='carry'> 1 </span> <p></p> Answer = <span class='answer'> 1 </span> <p></p>" +
-           "Next carry = <span class='carry'> 1 </span></p>"
+          text = "<p><span class='bin'> 1 </span> + <span class='bin'> 1 </span> + <span class='carry'> 1 </span> = <span class='answer'> 1 </span></p>" +
+           "<p>Carry is <span class='carry'> 1 </span></p>"
         }
       }
 

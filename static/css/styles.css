@@ -1196,9 +1196,6 @@ box-shadow: none;
 	background-color: #a8d3ff;
 }
 
-#binary1 {
-
-}
 
 #carry {
 	color: grey;
@@ -1212,18 +1209,46 @@ box-shadow: none;
 .binaryInfo {
 	margin-top: 50px !important;
 	width: 563.2px !important;
-	height: 200px !important;
+	height: 250px !important;
 	color: white;
 	padding-top: 40px;
 	font-size: 30px;
 	font-weight: bold;
+	text-align: middle;
+}
+
+.binaryInfo p {
+	height: 45px;
+	line-height: 40px;
 }
 
 .bin {
-	width: 70.4px;
+	width: 70px;
 	height: 40px;
 	background-color: #a8d3ff;
 	color: black !important;
+	display: inline-block;
+}
+
+.carry {
+	width: 70px;
+	height: 40px;
+	background-color: white;
+	display: inline-block;
+	color: grey !important;
+	font-size: 20px;
+}
+
+.answer {
+	width: 70px;
+	height: 40px;
+	background-color: white;
+	color: #78c964 !important;
+	display: inline-block;
+}
+
+#speed {
+	height: 30px;
 }
 
 /****************************************************/

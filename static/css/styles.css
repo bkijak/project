@@ -1160,8 +1160,11 @@ box-shadow: none;
 /******************BINARY PAGE***********************/
 /****************************************************/
 
+
 .binaryTable {
+	margin: 0 auto;
 	margin-top: 50px;
+
 }
 .binaryTable th, .binaryTable tr {
 	width: 70px;
@@ -1204,6 +1207,23 @@ box-shadow: none;
 
 #answer {
 	color: #78c964;
+}
+
+.binaryInfo {
+	margin-top: 50px !important;
+	width: 563.2px !important;
+	height: 200px !important;
+	color: white;
+	padding-top: 40px;
+	font-size: 30px;
+	font-weight: bold;
+}
+
+.bin {
+	width: 70.4px;
+	height: 40px;
+	background-color: #a8d3ff;
+	color: black !important;
 }
 
 /****************************************************/

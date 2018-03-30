@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}UEA{% endblock %}
+
+{% block currentButton %}
+
+  {% if current_user.is_authenticated %}
+  <a class="myBW w3-bar-item w3-button w3-red w3-right" href="{{ url_for('account') }}">ACCOUNT</a>
+  {% else %}
+  <a class="myBW w3-bar-item w3-button w3-red w3-right" href="{{ url_for('register') }}">SIGN UP</a>
+  {% endif %}
+
+  {% if current_user.is_authenticated %}
+    <a class="myBB w3-bar-item w3-button w3-red w3-right" href="{{ url_for('logout') }}">LOGOUT</a>
+  {% else %}
+    <a class="myBB w3-bar-item w3-button w3-red w3-right" href="{{ url_for('login') }}">LOGIN</a>
+  {% endif %}
+
+  <a class="myB w3-bar-item w3-button w3-black w3-right" href="{{ url_for('test') }}">TEST</a>
+  <a class="currentB myB w3-bar-item w3-button w3-black w3-right" href="{{ url_for('learn') }}">LEARN</a>
+  <a class="myB w3-bar-item w3-button w3-teal w3-right" href="{{ url_for('index') }}">HOME</a>
+{% endblock %}
+
+{% block page_content %}
+<div class="algoContainer">
+  <h1 id = "algoTitle"> Adding Binary </h1>
+  <div class="binaryDemo">
+    <table class="binaryTable">
+      <tr>
+        <th>128</th>
+        <th>64</th>
+        <th>32</th>
+        <th>16</th>
+        <th>8</th>
+        <th>4</th>
+        <th>2</th>
+        <th>1</th>
+      </tr>
+
+      <tr id="binary1"></tr>
+      <tr id="binary2"></tr>
+      <tr id="carry"></tr>
+      <tr id="answer"></tr>
+    </table>
+  </div>
+</div>
+{% endblock %}
+
+
+{% block scripts %}
+  {{ super() }}
+  <script src="{{url_for('static', filename='scripts/binary.js')}}"></script>
+{% endblock %}

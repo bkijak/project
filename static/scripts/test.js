@@ -72,8 +72,6 @@ function toObject(arr) {
 }
 
 function submit() {
-
-
   //information from answer text boxes are saved as variables
   var correct = 0;
   var numOfQuestions = 10;

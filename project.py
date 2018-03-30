@@ -279,6 +279,10 @@ def selectionSort():
 def insertionSort():
     return render_template('insertionSort.html')
 
+@app.route('/learn/binaryAddition')
+def binaryAddition():
+    return render_template('binaryAddition.html')
+
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))

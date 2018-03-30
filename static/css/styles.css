@@ -1156,6 +1156,55 @@ box-shadow: none;
 	text-align: center;
 }
 
+/****************************************************/
+/******************BINARY PAGE***********************/
+/****************************************************/
+
+.binaryTable {
+	margin-top: 50px;
+}
+.binaryTable th, .binaryTable tr {
+	width: 70px;
+	font-size: 30px;
+	height: 40px;
+	vertical-align: middle;
+	line-height: 30px;
+	font-weight: bold;
+}
+
+.binaryTable th {
+	background-color: #3187DD;
+	color: white;
+}
+
+.binaryTable th:nth-child(1) {
+	border-top-left-radius: 10px;
+}
+
+.binaryTable th:nth-child(8) {
+	border-top-right-radius: 10px;
+}
+
+.unfocused {
+	background-color: white;
+}
+
+.focused {
+	background-color: #a8d3ff;
+}
+
+#binary1 {
+
+}
+
+#carry {
+	color: grey;
+	font-size: 20px;
+}
+
+#answer {
+	color: #78c964;
+}
 
 /****************************************************/
 /******************404 and 403 PAGES*****************/

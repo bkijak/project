@@ -300,6 +300,12 @@ html, body, .all {
 
 .close:hover {
 color: black;
+}
+
+.w3-dropdown-content {
+	right: 0 !important;
+	margin-top: 44px;
+	margin-right: 70px;
 
 }
 
@@ -360,6 +366,7 @@ color: black;
   top:0;
   left: 0;
   z-index: 1;
+	margin-top: 55px;
 }
 
 #arrayContainer div
@@ -477,7 +484,8 @@ box-shadow: none;
 }
 
 #submit {
-	margin-top: 20px !important; */
+	margin: 0;
+	margin-top: 20px !important;
 }
 
 #remember_me {
@@ -1218,8 +1226,18 @@ box-shadow: none;
 }
 
 .binaryInfo p {
-	height: 45px;
+	height: 50px;
 	line-height: 40px;
+	margin-bottom: 5px;
+
+}
+
+.binaryInfo span {
+	vertical-align: middle;
+}
+
+.binaryInfo div {
+	display: inline-block;
 }
 
 .bin {

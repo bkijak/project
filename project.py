@@ -152,18 +152,10 @@ def logout():
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
-    with open('pass.txt', 'r') as myfile:
-        adminPass=myfile.read()
     form = RegisterForm()
     date = time.strftime("%d/%m/%Y")
+    admin = 0;
     if form.validate_on_submit():
-        if form.adminPassword.data == adminPass:
-            admin = 1
-            toFlash = 'Administrator account created'
-        else:
-            admin = 0
-            toFlash = 'User account created'
-
         user = User(email=form.email.data,
                     username=form.userName.data,
                     password=form.password.data,
@@ -171,9 +163,32 @@ def register():
                     is_admin = admin)
         db.session.add(user)
         db.session.commit()
-        flash(toFlash)
+        flash("Student account created")
         return redirect(url_for('login'))
     return render_template('register.html', form=form)
+
+@app.route('/register_admin', methods=['GET', 'POST'])
+def register_admin():
+    with open('pass.txt', 'r') as myfile:
+        adminPass=myfile.read()
+    form = RegisterFormAdmin()
+    date = time.strftime("%d/%m/%Y")
+    if form.validate_on_submit():
+        if form.adminPassword.data == adminPass:
+            admin = 1
+            user = User(email=form.email.data,
+                        username=form.userName.data,
+                        password=form.password.data,
+                        date=date,
+                        is_admin = admin)
+            db.session.add(user)
+            db.session.commit()
+            return redirect(url_for('login'))
+            flash('Administrator account created')
+        else:
+            flash('Invalid administrator password')
+
+    return render_template('register_admin.html', form=form)
 
 @app.route('/account', methods=['GET', 'POST'])
 @login_required
@@ -353,7 +368,23 @@ class RegisterForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired(),
                                                     EqualTo('passwordVal', message='Passwords must match')])
     passwordVal = PasswordField('Confirm password', validators=[DataRequired()])
-    adminPassword = PasswordField('Administrator password')
+    submit = SubmitField('Register')
+
+    def validate_email(self, field):
+        if User.query.filter_by(email=field.data).first():
+            raise ValidationError('Email already in use.')
+
+    def validate_userName(self, field):
+        if User.query.filter_by(username=field.data).first():
+            raise ValidationError('User name already in use')
+
+class RegisterFormAdmin(FlaskForm):
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    userName = StringField('First name and last name', validators=[DataRequired()])
+    password = PasswordField('Password', validators=[DataRequired(),
+                                                    EqualTo('passwordVal', message='Passwords must match')])
+    passwordVal = PasswordField('Confirm password', validators=[DataRequired()])
+    adminPassword = PasswordField('Administrator password', validators=[DataRequired()])
     submit = SubmitField('Register')
 
     def validate_email(self, field):

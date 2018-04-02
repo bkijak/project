@@ -59,12 +59,12 @@ function runDemo(binary1, binary2, carry, answer, i, delay) {
           carry[i-1] = 'empty';
           answer[i] = 0;
           text = "<p><span class='bin'> 0 </span> + <span class='bin'> 0 </span> + <span class='carry'> 0 </span> = <span class='answer'> 0 </span></p>" +
-           "<p>Carry is <span class='carry'> 0 </span></p>"
+           "<p>Next carry is <span class='carry'> 0 </span></p>"
         }
         if(carry[i] == 1) {
           answer[i] = 1;
           text = "<p><span class='bin'> 0 </span> + <span class='bin'> 0 </span> + <span class='carry'> 1 </span> = <span class='answer'> 1 </span></p>" +
-           "<p>Carry is <span class='carry'> 0 </span></p>"
+           "<p>Next carry is <span class='carry'> 0 </span></p>"
         }
       }
       if(binary1[i] == 1 && binary2[i] == 0){
@@ -72,13 +72,13 @@ function runDemo(binary1, binary2, carry, answer, i, delay) {
           carry[i-1] = 'empty';
           answer[i] = 1;
           text = "<p><span class='bin'> 1 </span> + <span class='bin'> 0 </span> + <span class='carry'> 0 </span> = <span class='answer'> 1 </span></p>" +
-           "<p>Carry is <span class='carry'> 0 </span></p>"
+           "<p>Next carry is <span class='carry'> 0 </span></p>"
         }
         if(carry[i] == 1) {
           answer[i] = 0;
           carry[i-1] = 1;
           text = "<p><span class='bin'> 1 </span> + <span class='bin'> 0 </span> + <span class='carry'> 1 </span> = <span class='answer'> 0 </span></p>" +
-           "<p>Carry is <span class='carry'> 0 </span></p>"
+           "<p>Next carry is <span class='carry'> 0 </span></p>"
         }
       }
       if(binary1[i] == 0 && binary2[i] == 1) {
@@ -86,13 +86,13 @@ function runDemo(binary1, binary2, carry, answer, i, delay) {
           carry[i-1] = 'empty';
           answer[i] = 1;
           text = "<p><span class='bin'> 0 </span> + <span class='bin'> 1 </span> + <span class='carry'> 0 </span> = <span class='answer'> 1 </span></p>" +
-           "<p>Carry is <span class='carry'> 0 </span></p>"
+           "<p>Next carry is <span class='carry'> 0 </span></p>"
         }
         if(carry[i] == 1) {
           answer[i] = 0;
           carry[i-1] = 1;
           text = "<p><span class='bin'> 0 </span> + <span class='bin'> 1 </span> + <span class='carry'> 1 </span> = <span class='answer'> 0 </span></p>" +
-           "<p>Carry is <span class='carry'> 1 </span></p>"
+           "<p>Next carry is <span class='carry'> 1 </span></p>"
         }
       }
       if(binary1[i] == 1 && binary2[i] == 1){
@@ -100,13 +100,13 @@ function runDemo(binary1, binary2, carry, answer, i, delay) {
           carry[i-1] = 1;
           answer[i] = 0;
           text = "<p><span class='bin'> 1 </span> + <span class='bin'> 1 </span> + <span class='carry'> 0 </span> = <span class='answer'> 0 </span></p>" +
-           "<p>Carry is <span class='carry'> 1 </span></p>"
+           "<p>Next carry is <span class='carry'> 1 </span></p>"
         }
         if(carry[i] == 1) {
           answer[i] = 1;
           carry[i-1] = 1;
           text = "<p><span class='bin'> 1 </span> + <span class='bin'> 1 </span> + <span class='carry'> 1 </span> = <span class='answer'> 1 </span></p>" +
-           "<p>Carry is <span class='carry'> 1 </span></p>"
+           "<p>Next carry is <span class='carry'> 1 </span></p>"
         }
       }
 

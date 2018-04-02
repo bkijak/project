@@ -4,11 +4,38 @@
 {% block title %}UEA{% endblock %}
 
 {% block currentButton %}
-  <a class="myBW w3-bar-item w3-button w3-red w3-right" href="register">SIGN UP</a>
-  <a class="myBB w3-bar-item w3-button w3-red w3-right" href="login">LOGIN</a>
-  <a class="myB w3-bar-item w3-button w3-black w3-right" href="learn">TEST</a>
-  <a class="myB w3-bar-item w3-button w3-black w3-right" href="learn">LEARN</a>
-  <a class="myB w3-bar-item w3-button w3-teal w3-right" href="index">HOME</a>
+
+  {% if current_user.is_authenticated %}
+  <a class="myBW w3-bar-item w3-button w3-red w3-right" href="{{ url_for('account') }}">ACCOUNT</a>
+  {% else %}
+  <!-- <a class="myBW w3-bar-item w3-button w3-red w3-right" href="{{ url_for('register') }}">SIGN UP</a> -->
+  <button onclick="listFunction()" class="myBW w3-bar-item w3-button w3-red w3-right">SIGN UP</button>
+    <div id="registerList" class="w3-dropdown-content w3-bar-block w3-card-4 w3-animate-zoom">
+      <a href="{{ url_for('register') }}" class="w3-bar-item w3-button">Student</a>
+      <a href="{{ url_for('register_admin') }}" class="w3-bar-item w3-button">Admin</a>
+    </div>
+
+    <script>
+    function listFunction() {
+        var x = document.getElementById("registerList");
+        if (x.className.indexOf("w3-show") == -1) {
+            x.className += " w3-show";
+        } else {
+            x.className = x.className.replace(" w3-show", "");
+        }
+    }
+    </script>
+  {% endif %}
+
+  {% if current_user.is_authenticated %}
+    <a class="myBB w3-bar-item w3-button w3-red w3-right" href="{{ url_for('logout') }}">LOGOUT</a>
+  {% else %}
+    <a class="myBB w3-bar-item w3-button w3-red w3-right" href="{{ url_for('login') }}">LOGIN</a>
+  {% endif %}
+
+  <a class="myB w3-bar-item w3-button w3-black w3-right" href="{{ url_for('test') }}">TEST</a>
+  <a class="myB w3-bar-item w3-button w3-black w3-right" href="{{ url_for('learn') }}">LEARN</a>
+  <a class="myB w3-bar-item w3-button w3-teal w3-right" href="{{ url_for('index') }}">HOME</a>
 {% endblock %}
 
 {% block page_content %}
@@ -18,7 +45,7 @@
 	<div class="loginS">
 		<div class="login-screen">
 			<div class="app-title">
-				<h1>Register a new account:</h1>
+				<h1>Register a new student account:</h1>
 			</div>
 
       <form method = "POST">

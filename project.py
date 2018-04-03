@@ -2,7 +2,7 @@ import os
 from flask import Flask, render_template, flash, redirect, url_for, request, abort
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import FlaskForm
-from wtforms import BooleanField, validators, StringField, SubmitField, PasswordField
+from wtforms import BooleanField, validators, StringField, SubmitField, PasswordField, TextAreaField
 from wtforms.validators import DataRequired, Regexp, EqualTo, Email, ValidationError
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin, LoginManager, login_required, login_manager, login_user, logout_user, current_user
@@ -25,10 +25,10 @@ db = SQLAlchemy(app)
 bootstrap = Bootstrap(app)
 login_manager = LoginManager(app)
 login_manager.session_protection = 'basic'
-login_manager.login_view = 'login.html'
+login_manager.login_view = 'login'
 
 ###########################################
-##################MODELS###################
+#############DATABSE MODELS################
 ###########################################
 
 class User(UserMixin, db.Model):
@@ -41,6 +41,7 @@ class User(UserMixin, db.Model):
     date = db.Column(db.String(64))
     is_admin = db.Column(db.Boolean)
     tests = db.relationship('Test', backref='user', lazy='dynamic')
+    discussions = db.relationship('Discussion', backref='user', lazy='dynamic')
 
     @property
     def password(self):
@@ -75,7 +76,27 @@ class Question(db.Model):
     correct = db.Column(db.Boolean)
     test_id = db.Column(db.Integer, db.ForeignKey('tests.id'))
 
-# db.create_all()
+class Discussion(db.Model):
+    __tablename__ = 'discussions'
+    id = db.Column(db.Integer, primary_key=True)
+    timestamp = db.Column(db.DateTime, index=True, default=datetime.datetime.now)
+    topic = db.Column(db.Text)
+    context = db.Column(db.Text)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    user_name = db.Column(db.Text)
+    comments = db.relationship('Comment', backref='discussion', lazy='dynamic')
+
+class Comment(db.Model):
+    __tablename__ = 'comments'
+    id = db.Column(db.Integer, primary_key=True)
+    timestamp = db.Column(db.DateTime, index=True, default=datetime.datetime.now)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    user_name = db.Column(db.Text)
+    comment_body = db.Column(db.Text)
+    discussion_id = db.Column(db.Integer, db.ForeignKey('discussions.id'))
+    admin_answer = db.Column(db.Boolean)
+
+db.create_all()
 
 ###########################################
 ##################VIEWS####################
@@ -131,6 +152,54 @@ def test():
 
     if request.method == 'GET':
         return render_template('test.html')
+
+@app.route('/discussion', methods=['GET', 'POST'])
+@login_required
+def discussion():
+    form = DiscussionForm()
+    discussions = Discussion.query.all()
+    if form.validate_on_submit():
+        discussion = Discussion(topic = form.topic.data,
+                                context = form.context.data,
+                                user_id = current_user.id,
+                                user_name = current_user.username)
+        db.session.add(discussion)
+        db.session.commit()
+        flash('discussion submitted')
+        return redirect(url_for('discussion'))
+
+    return render_template('discussion.html', form=form, discussionList=discussions)
+
+@app.route('/discussion/topic/<discussionID>', methods=['GET', 'POST'])
+def viewTopic(discussionID):
+    discussion = Discussion.query.filter_by(id=discussionID).first()
+    form = CommentForm()
+    comments = db.session.query(Comment).filter_by(discussion_id = discussionID).all()
+    commentInfo = []
+    for comment in comments:
+        id = comment.id
+        timestamp = comment.timestamp
+        userID = comment.user_id
+        userName = comment.user_name
+        commentBody = comment.comment_body
+        adminAnswer = comment.admin_answer
+
+        a = CommentObj(id, timestamp, userID, userName, commentBody, adminAnswer)
+        commentInfo.append(a)
+
+    if form.validate_on_submit():
+        adminAnswer = current_user.is_admin
+        comment = Comment(user_id = current_user.id,
+                          user_name = current_user.username,
+                          comment_body = form.comment.data,
+                          discussion_id = discussionID,
+                          admin_answer = adminAnswer)
+        db.session.add(comment)
+        db.session.commit()
+        flash('comment submitted')
+        return redirect(url_for('viewTopic', discussionID=discussionID ))
+
+    return render_template('topic.html', discussion=discussion, commentInfo = commentInfo, form=form)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -347,9 +416,23 @@ class UserObj:
     def __str__(self):
         return  str(self.__class__) + '\n'+ '\n'.join(('{} = {}'.format(item, self.__dict__[item]) for item in self.__dict__))
 
+class CommentObj:
+    def __init__(self, id, timestamp, user_id, user_name, comment_body, admin_answer):
+        self.id = id
+        self.timestamp = timestamp
+        self.user_id = user_id
+        self.user_name = user_name
+        self.comment_body = comment_body
+        self.admin_answer = admin_answer
+
+    def __str__(self):
+        return  str(self.__class__) + '\n'+ '\n'.join(('{} = {}'.format(item, self.__dict__[item]) for item in self.__dict__))
+
 def myconverter(o):
     if isinstance(o, datetime.datetime):
         return o.__str__()
+
+
 
 
 ###########################################
@@ -405,6 +488,15 @@ class ChangePassForm(FlaskForm):
 class ChangeAvatarForm(FlaskForm):
     imageLink = StringField('Image link', validators=[DataRequired()])
     submitImg = SubmitField('Submit');
+
+class DiscussionForm(FlaskForm):
+    topic = StringField('Topic', validators=[DataRequired()])
+    context = TextAreaField('Context', validators=[DataRequired()])
+    submit = SubmitField('Submit')
+
+class CommentForm(FlaskForm):
+    comment = TextAreaField('Comment', validators=[DataRequired()])
+    submit = SubmitField('Submit')
 
 ###########################################
 ##################RUN######################

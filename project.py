@@ -16,7 +16,7 @@ import json, time, datetime
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'hard to guess string'
+app.config['SECRET_KEY'] = 'abcdefg12345'
 app.config['SQLALCHEMY_DATABASE_URI'] =\
     'sqlite:///' + os.path.join(basedir, 'data.sqlite')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -96,7 +96,7 @@ class Comment(db.Model):
     discussion_id = db.Column(db.Integer, db.ForeignKey('discussions.id'))
     admin_answer = db.Column(db.Boolean)
 
-db.create_all()
+# db.create_all()
 
 ###########################################
 ##################VIEWS####################

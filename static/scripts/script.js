@@ -1,3 +1,4 @@
+//contains general javascript for use throughout the website
 $(document).ready(function() {
   var modal = document.getElementById('passPopup');
   var modal2 = document.getElementById('avatarPopup');
@@ -35,6 +36,7 @@ $(document).ready(function() {
     }
   }
 
+  //applies an image to the avatar on the account page if the user is an admin
   if(current_user_admin == "True") {
     if(current_user_avatar != "None") {
       AvatarPic.innerHTML = "<img class='adminImg' src=\""+ current_user_avatar +"\">";
@@ -44,6 +46,7 @@ $(document).ready(function() {
     }
   }
 
+  //applies an image to the avatar on the account page is the user is a student
   else {
     if(current_user_avatar != "None") {
       AvatarPic.innerHTML = "<img class='userImg' src=\""+ current_user_avatar +"\">";
@@ -52,10 +55,4 @@ $(document).ready(function() {
       AvatarPic.innerHTML = "<img class='userImg' src= \"/static/imgs/user.png\" >";
     }
   }
-
-
-
-
-
-
 });

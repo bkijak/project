@@ -9,6 +9,7 @@ $(document).ready(function(){
   //3 = binary to decimal
   //4 = decimal to binary
   //5 = logic gate name
+  //6 = logic gate output
 
   //Initialising a 2d array
   window.questions = [];

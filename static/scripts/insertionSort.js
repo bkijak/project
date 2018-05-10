@@ -99,44 +99,6 @@ function printArray (array1, start, target, minimalPos) {
   OutDiv.innerHTML = "<ul>" + item + "</ul>";
 }
 
-// //A fuction to display the array in HTML
-// function printArray (array1, start, target, minimalPos) {
-//   //initialise string item which will be one item within the list
-//   var item = "";
-//   for (var i = 0; i < array1.length; i++) {
-//     var style = "";
-//     var triangle1 = "";
-//     var triangle2 = "";
-//
-//     if (i < start) {
-//       style = "class = 'finished'";
-//     }
-//     if (i == start) {
-//       triangle1 = topTri;
-//       style = "class = 'start'";
-//     }
-//     if (i == target) {
-//       style = "class = 'target'";
-//     }
-//     if (i == minimalPos) {
-//       triangle2 = botTri;
-//     style = "class = 'minimalPos'";
-//     }
-//     if(i == minimalPos && i == start) {
-//       style = "class = 'minAndStart'";
-//     }
-//     if(i == minimalPos && i == target) {
-//       style = "class = 'minAndTar'";
-//     }
-//     if(i == minimalPos && i == target && i == start) {
-//       style = "class = 'minAndStartAndTar'";
-//     }
-//     item += "<li " + style + ">" + array1[i] + triangle1 + triangle2 + "</li>";
-//   }
-//
-//   OutDiv.innerHTML = "<ul>" + item + "</ul>";
-// }
-
 //A function used to animate the selection sort algorithm
 function animateInsertionSort() {
   B = array1.slice();

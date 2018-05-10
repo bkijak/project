@@ -331,7 +331,6 @@ def loadTest(testID):
 
     return render_template('accountTest.html', test=test, questions1=questionInfo)
 
-
 @app.route('/account/view_user/<userID>', methods=['GET', 'POST'])
 @login_required
 def loadUser(userID):
@@ -431,9 +430,6 @@ class CommentObj:
 def myconverter(o):
     if isinstance(o, datetime.datetime):
         return o.__str__()
-
-
-
 
 ###########################################
 ##################FORMS####################

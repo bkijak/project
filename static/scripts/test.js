@@ -368,8 +368,8 @@ function QType6(questionNumber) {
 
   else if (number == 4) {
     gateLocation = "<img src= \"/static/imgs/nor.png\" >";
-    if (input1 == 1 && input2 == 1) {answer = 0}
-    else {answer = 1}
+    if (input1 == 0 && input2 == 0) {answer = 1}
+    else {answer = 0}
     inputs = 2;
   }
 
